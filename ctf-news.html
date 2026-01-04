@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="monetag" content="6ba60e830ad87a9d9adc7f623aeb8aa8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CTF & News - SN Security</title>
+  <meta name="description" content="SN Security - Lost phone report, OSINT tools, cyber safety platform. Secure your digital identity.">
+  <link rel="preload" href="./style.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./style.css"></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    /* Page-specific styles for CTF & News */
+    .ctf-hero{min-height:58vh;display:flex;align-items:center;justify-content:center;padding:110px 20px 40px;background:linear-gradient(180deg,rgba(0,6,12,0.5),rgba(2,12,25,0.85));position:relative;overflow:hidden}
+    .matrix-canvas{position:absolute;inset:0;z-index:0;opacity:0.28;pointer-events:none}
+    .ctf-hero .hero-content{position:relative;z-index:2;text-align:center;max-width:1100px}
+    .hero-sub{color:var(--text-secondary);margin-top:8px}
+
+
+    /* Events grid: show four square cards on desktop */
+    .events-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+    .event-card{background:linear-gradient(180deg, rgba(6,12,22,0.6), rgba(4,10,18,0.6));border:1px solid rgba(0,255,178,0.06);padding:10px;border-radius:10px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;gap:10px;aspect-ratio:1/1;min-height:0}
+    .event-logo{width:56px;height:56px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--accent-secondary);font-family:var(--font-heading);font-size:1rem}
+    .event-meta{flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:8px}
+      .event-logo{width:56px;height:56px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:var(--font-heading);font-size:1rem;color:transparent;-webkit-text-fill-color:transparent;background:linear-gradient(90deg,#ff004d,#ff7a00,#ffd300,#00d100,#00b7ff,#7a00ff,#ff00bf);background-size:200% 200%;-webkit-background-clip:text;background-clip:text;animation:rainbowShift 6s linear infinite;box-shadow:0 6px 18px rgba(0,0,0,0.28)}
+      .event-meta{flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:8px}
+    .event-meta h4{margin:0;font-family:var(--font-heading);color:var(--accent-primary);font-size:1rem}
+    .event-row{display:flex;gap:8px;flex-wrap:wrap;color:var(--text-secondary);font-size:0.92rem}
+    .event-dates{color:var(--text-secondary);font-size:0.92rem;margin-top:6px}
+    .event-cta{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(90deg,#00ffa2,#00c2ff);color:#021017;border-radius:10px;font-weight:800;text-decoration:none}
+
+    /* Ticker */
+    .ctf-ticker{overflow:hidden;border-radius:8px;background:linear-gradient(90deg,rgba(0,0,0,0.12),rgba(0,0,0,0.04));padding:8px;margin-top:12px;border:1px solid rgba(255,255,255,0.02)}
+    .ctf-ticker .ticker-track{display:inline-block;white-space:nowrap;will-change:transform;animation:scroll-left linear infinite}
+    .ctf-ticker .ticker-item{display:inline-flex;align-items:center;gap:10px;margin-right:28px;color:var(--text-secondary)}
+    .badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;font-size:0.75rem}
+      .badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;font-size:0.75rem;background:linear-gradient(90deg,#ff004d,#ff7a00,#ffd300,#00d100,#00b7ff,#7a00ff,#ff00bf);background-size:200% 200%;color:#021017;animation:rainbowShift 5s linear infinite}
+      .badge.live{color:#fff}
+      .badge.upcoming{color:#021017}
+
+    @keyframes scroll-left{from{transform:translateX(0)}to{transform:translateX(-50%)} }
+      @keyframes rainbowShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* Mobile-first: stack cards 1-per-row, avoid horizontal scrolling */
+    @media (max-width:900px){
+      .events-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+      .event-card{aspect-ratio:auto;width:100%;min-width:0;height:auto}
+      .platforms-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .ctf-ticker .ticker-track{animation-duration:20s}
+    }
+    @media (min-width:901px){
+      .ctf-ticker .ticker-track{animation-duration:36s}
+    }
+
+    /* Platforms: four square cards, same shape as events */
+    .platforms-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+    .platform-card{background:linear-gradient(180deg, rgba(3,10,18,0.6), rgba(6,14,26,0.6));border:1px solid rgba(255,255,255,0.03);padding:12px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1;text-align:center}
+    .platform-card small{color:var(--text-secondary);display:block;margin-top:8px}
+
+    /* News feed */
+    .news-feed{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+    .news-list{display:flex;flex-direction:column;gap:12px}
+    .news-card{display:flex;gap:12px;background:var(--bg-card);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+    .news-thumb{width:110px;height:72px;background:#0b1220;border-radius:8px;flex:0 0 110px}
+    .news-meta h4{margin:0;font-size:1rem;color:var(--accent-primary)}
+    .news-meta p{margin:6px 0 0;color:var(--text-secondary);font-size:0.92rem}
+
+    /* Learn cards */
+    .learn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
+    .learn-card{background:linear-gradient(180deg, rgba(3,10,18,0.6), rgba(6,14,26,0.6));padding:12px;border-radius:10px;border:1px solid var(--border-color)}
+
+    /* Leaderboard */
+    .leaderboard{background:var(--bg-card);padding:12px;border-radius:10px;border:1px solid var(--border-color)}
+
+    /* Daily tip */
+    .daily-tip{background:linear-gradient(90deg, rgba(0,255,178,0.03), rgba(0,200,255,0.02));padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);color:var(--text-secondary)}
+
+    @media (max-width:900px){.news-feed{grid-template-columns:1fr}.ctf-hero{padding-top:140px}}
+    /* Ensure platform cards keep a good readable shape on mobile */
+    @media (max-width:900px) {
+      .platforms-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .platform-card { aspect-ratio: auto !important; height: auto !important; min-height: 110px; padding: 14px; display: flex; align-items: center; justify-content: center; text-align: center; }
+      .platform-card a.btn { margin-top: 8px; }
+    }
+    @media (max-width:480px) {
+      .platforms-grid { grid-template-columns: 1fr; }
+      .platform-card { min-height: 100px; padding: 12px; }
+    }
+    /* Footer social icon shapes + accessibility helper */
+    .footer-social{display:flex;gap:8px;align-items:center}
+    .footer-social .social-link{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--text-primary);text-decoration:none;font-weight:700}
+    .footer-social .social-link:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.25)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    /* CTF page notification (matches Home page marquee style) */
+    .ctf-notice{width:100%;position:relative;overflow:hidden;padding:8px 0;margin-bottom:12px;background:transparent;z-index:800}
+    .ctf-notice .marquee-inner{display:flex;align-items:center;gap:44px;white-space:nowrap;will-change:transform;animation:marquee-ctf 28s linear infinite}
+    .ctf-notice a{display:inline-block;padding:6px 12px;font-weight:800;color:#9ef0ff;text-decoration:none;font-family:var(--font-heading,'Rajdhani',system-ui);font-size:0.96rem;border-radius:6px;text-shadow:0 0 16px rgba(158,240,255,0.95)}
+    .ctf-notice a:hover{filter:brightness(1.04);text-decoration:underline}
+    @keyframes marquee-ctf{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+      /* Notification marquee (pure HTML + CSS)
+         - Pure CSS marquee using a CSS ::after duplication to create a seamless
+           loop without duplicating the clickable anchor in the DOM. The link
+           (the first anchor) remains the only interactive element.
+         - Separation of concerns: the marquee movement is a transform animation
+           on the track; the color-shift is a separate background-position
+           animation applied to the text via background-clip:text.
+         - Avoids 100vw to prevent horizontal scrollbars on mobile and ensures
+           consistent behavior on CDN deployments (Vercel) where fonts may load
+           asynchronously.
+      */
+      .notification-marquee{background:#031027;color:#9ef0ff;padding:10px 0;margin-bottom:12px;overflow:hidden}
+      .notification-marquee .marquee{overflow:hidden}
+      .notification-marquee .marquee__track{display:inline-flex;align-items:center;white-space:nowrap;gap:48px;will-change:transform;animation:marquee-scroll 36s linear infinite}
+      /* Duplicate text via pseudo-element (not duplicate DOM anchors) */
+      .notification-marquee .marquee__track::after{content:attr(data-text);display:inline-block;margin-left:48px}
+      /* Clickable text (only the first anchor is interactive) */
+      .notification-marquee .marquee__item{display:inline-block;font-family:Orbitron, 'Rajdhani', system-ui, -apple-system, 'Segoe UI', Roboto, Arial; font-weight:700;font-size:1rem;line-height:1;color:transparent;background:linear-gradient(90deg,#00f0ff,#0066ff,#ff66b3,#00ff9f);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 12px rgba(0,240,255,0.06);text-decoration:none}
+      .notification-marquee .marquee__item:focus{outline:2px solid rgba(0,240,255,0.12);outline-offset:4px}
+      .notification-marquee .marquee__item:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;text-decoration-color:rgba(158,240,255,0.9);filter:brightness(1.05);text-shadow:0 0 20px rgba(158,240,255,0.35)}
+      /* subtle color shimmer independent from movement */
+      .notification-marquee .marquee__item{animation:colorShift 6s linear infinite}
+      @keyframes colorShift{0%{background-position:0% 50%}25%{background-position:33% 50%}50%{background-position:66% 50%}75%{background-position:100% 50%}100%{background-position:0% 50%}}
+      /* Move the whole track left by half its width (since ::after mirrors content)
+         This creates a continuous loop without visual jumps. */
+      @keyframes marquee-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+      @media (max-width:920px){.notification-marquee .marquee__item{font-size:0.92rem}.notification-marquee .marquee__track{animation-duration:28s}}
+      @media (max-width:520px){.notification-marquee .marquee__item{font-size:0.86rem}.notification-marquee .marquee__track{animation-duration:20s}}
+      /* Gradient text effect for headings and news titles */
+      .hero-title, .section-title, .news-meta h4, .platform-card strong {
+        background: linear-gradient(90deg, #00ffa2, #00c2ff, #7a00ff, #ff00bf);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 100%;
+        transition: background-position 0.8s ease;
+      }
+      .hero-title:hover, .section-title:hover, .news-meta h4:hover, .platform-card strong:hover {
+        background-position: 100% 0;
+      }
+  </style>
+
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="./index.html" class="nav-home" aria-label="SN Security Home">
+          <img src="./assets/logo.svg" alt="SN Security Logo" width="40" height="40" decoding="async" loading="lazy">
+          <span>SN Security</span>
+        </a>
+      </div>
+      <div class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="./roadmap.html" class="nav-link">Roadmap</a></li>
+        <li><a href="./tools.html" class="nav-link">Tools</a></li>
+        <li><a href="./tech-store.html" class="nav-link">Store</a></li>
+        <li><a href="./ctf-news.html" class="nav-link active">CTF & News</a></li>
+        <li><a href="./osint.html" class="nav-link">OSINT</a></li>
+        <li><a href="./about.html" class="nav-link">About</a></li>
+        <li><a href="./contact.html" class="nav-link">Contact</a></li>
+        <li><a href="./legal.html" class="nav-link">Legal</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="ctf-hero">
+    <div class="hero-content">
+      <h1 class="hero-title neon-glow">CTF & Cybersecurity News</h1>
+      <p class="hero-sub">Stay Updated. Stay Ahead. Practice Hacking Ethically.</p>
+      <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-primary" href="#events">⚡ Join Now</a>
+        <a class="btn btn-secondary" href="#news">Latest News</a>
+      </div>
+    </div>
+    <canvas id="matrix" class="matrix-canvas" aria-hidden="true"></canvas>
+    </section>
+
+    <main class="container">
+
+    <section id="events" class="section-block">
+      <h2 class="section-title">Live / Upcoming CTF Events</h2>
+      <div class="notification-marquee" role="region" aria-label="Important notification">
+        <div class="marquee">
+          <div class="marquee__track" data-text="🔴 Register for Hack With India — 17 January 2026 | Online Event.">
+            <a class="marquee__item" href="https://www.hackwithindia.com/" target="_blank" rel="noopener noreferrer">🔴 Register for Hack With India — 17 January 2026 | Online Event.</a>
+          </div>
+        </div>
+      </div>
+    
+      <p class="section-sub">Event Logo • CTF Name • Mode • Difficulty • Date • Join</p>
+      <div class="ctf-ticker" aria-hidden="false"><div class="ticker-track" id="ctfTicker"></div></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px">
+        <input id="ctfSearch" type="search" placeholder="Search CTFs, platforms, tags..." style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.01);color:var(--text-primary)">
+        <select id="ctfFilter" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.01);color:var(--text-primary)">
+          <option value="all">All regions</option>
+          <option value="global">Global</option>
+          <option value="asia">Asia</option>
+          <option value="eu">Europe</option>
+          <option value="na">North America</option>
+        </select>
+        <button id="ctfRefresh" class="btn btn-light">Refresh</button>
+      </div>
+
+      <div class="events-grid" id="eventsGrid" aria-live="polite">
+        <!-- Events provided inline; no external JSON required -->
+      </div>
+      
+    </section>
+
+    <section class="section-block">
+      <h2 class="section-title">Top CTF Platforms</h2>
+      <div class="platforms-grid">
+        <div class="platform-card"><strong>Hack The Box</strong><small>Intermediate+ — Offensive labs & challenges</small><a class="btn btn-secondary" href="https://www.hackthebox.com/">🔗 Start</a></div>
+        <div class="platform-card"><strong>TryHackMe</strong><small>Beginner–Pro — Guided rooms & pathways</small><a class="btn btn-secondary" href="https://tryhackme.com/">🔗 Start</a></div>
+        <div class="platform-card"><strong>Root-Me</strong><small>Intermediate — Wide practice catalog</small><a class="btn btn-secondary" href="https://www.root-me.org/">🔗 Start</a></div>
+        <div class="platform-card"><strong>picoCTF</strong><small>Students — Beginner competitions</small><a class="btn btn-secondary" href="https://picoctf.org/">🔗 Start</a></div>
+        <!-- Removed extra platform to keep a clean 4-card layout -->
+      </div>
+    </section>
+
+    <section id="news" class="section-block">
+      <h2 class="section-title">Cyber Security Breaking News</h2>
+      <p class="section-sub">Latest breaches, ransomware alerts, CVEs, and policy updates.</p>
+      <div class="news-feed">
+        <div>
+          <div class="news-list" id="newsList">
+            <!-- News cards populated by JS -->
+          </div>
+        </div>
+        <aside>
+          <div class="leaderboard">
+            <h4>Leaderboard Spotlight</h4>
+            <p class="section-sub">Top SN Security CTF scorers (placeholder)</p>
+            <ol>
+              <li>alice — 🇺🇸 — 1240 pts</li>
+              <li>bob — 🇮🇳 — 1110 pts</li>
+              <li>charlie — 🇬🇧 — 980 pts</li>
+            </ol>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="daily-tip">
+            <strong>Daily Security Tip</strong>
+            <p id="dailyTip" style="margin-top:8px">Don’t reuse passwords! Use a password manager.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <h2 class="section-title">Learn & Practice</h2>
+      <div class="learn-grid">
+        <div class="learn-card"><strong>Web Exploitation</strong><p class="section-sub">XSS, SQLi, Auth bypass</p><a class="btn btn-secondary" href="#">🔗 Tutorials</a></div>
+        <div class="learn-card"><strong>Reverse Engineering</strong><p class="section-sub">Malware, Binary analysis</p><a class="btn btn-secondary" href="#">🔗 Tools</a></div>
+        <div class="learn-card"><strong>DFIR & OSINT</strong><p class="section-sub">Forensics, Recon</p><a class="btn btn-secondary" href="#">🔗 Guides</a></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="./index.html" class="footer-home" aria-label="SN Security Home">
+                          <img src="./assets/logo.svg" alt="SN Security" width="40" height="40" decoding="async" loading="lazy">
+                            <span>SN Security</span>
+                        </a>
+                    </div>
+                    <p class="footer-tagline">Learn Hacking. Secure Future.</p>
+                    <div class="social-links">
+                        <a href="https://x.com/" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/sahebsheikh25" class="social-link" aria-label="GitHub" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/sahebsheikh/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./roadmap.html">Roadmap</a></li>
+                    <li><a href="./tools.html">Tools</a></li>
+                    <li><a href="./osint.html">OSINT</a></li>
+                  </ul>
+                </div>
+                <div class="footer-section">
+                  <h3>Resources</h3>
+                  <ul class="footer-links">
+                    <li><a href="/ctf-news.html">CTF & News</a></li>
+                    <li><a href="/about.html">About Us</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                  </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="./legal.html">Privacy Policy</a></li>
+                        <li><a href="./legal.html">Terms of Service</a></li>
+                        <li><a href="./legal.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SN Security. All rights reserved. | Designed for ethical hacking education.</p>
+            </div>
+        </div>
+    </footer>
+
+  <script>
+    // Simple Matrix animation for the hero background
+    (function(){
+      const canvas = document.getElementById('matrix');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      function resize(){canvas.width = window.innerWidth; canvas.height = document.querySelector('.ctf-hero').offsetHeight}
+      window.addEventListener('resize', resize);
+      resize();
+      const cols = Math.floor(canvas.width / 16);
+      const ypos = new Array(cols).fill(0);
+      const letters = '01ABCDXYZ@#$%&*()<>/'.split('');
+      function draw(){
+        ctx.fillStyle = 'rgba(1,6,12,0.06)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = 'rgba(0,255,178,0.14)';
+        ctx.font = '14px ' + (getComputedStyle(document.documentElement).getPropertyValue('--font-mono') || 'monospace');
+        for(let i=0;i<ypos.length;i++){
+          const text = letters[Math.floor(Math.random()*letters.length)];
+          const x = i*16;
+          ctx.fillText(text, x, ypos[i]*16);
+          if(ypos[i]*16 > canvas.height && Math.random() > 0.975) ypos[i]=0; else ypos[i]++;
+        }
+      }
+      setInterval(draw, 80);
+    })();
+    
+
+    // Fetch tech news via serverless proxy (keeps API key secret)
+    async function fetchNews(){
+      const list = document.getElementById('newsList');
+      list.innerHTML = '<p style="color:var(--text-secondary)">Loading latest tech news…</p>';
+      const endpoint = '/api/news';
+      try{
+        const resp = await fetch(endpoint);
+        let bodyText = '';
+        try { bodyText = await resp.text(); } catch(_) { bodyText = ''; }
+        if(!resp.ok){
+          console.warn('News proxy returned', resp.status, bodyText);
+          throw new Error('Fetch error ' + resp.status + ' - ' + (bodyText||'<no body>'));
+        }
+        const data = JSON.parse(bodyText || '{}');
+        if(!data.articles || !data.articles.length) throw new Error('No articles');
+        list.innerHTML = '';
+        
+          data.articles.forEach(a => {
+            const card = document.createElement('div'); card.className='news-card';
+            const thumb = a.urlToImage ? '<div class="news-thumb" style="background-image:url(' + escapeHtml(a.urlToImage) + ');background-size:cover;background-position:center"></div>' : '<div class="news-thumb"></div>';
+            const published = a.publishedAt ? new Date(a.publishedAt).toLocaleString() : '';
+            const desc = a.description ? '<p>' + escapeHtml(a.description) + '</p>' : '';
+            card.innerHTML = thumb + '<div class="news-meta"><h4>' + escapeHtml(a.title) + '</h4><p>' + escapeHtml(a.source.name) + ' · ' + escapeHtml(published) + '</p>' + desc + '<p style="margin-top:8px"><a class="btn btn-secondary" href="' + escapeHtml(a.url) + '" target="_blank">Read more</a></p></div>';
+            list.appendChild(card);
+          });
+      }catch(err){
+        console.warn('News fetch failed:', err);
+        // Fallback: show a few static items
+        const fallback = [
+          {title:'Massive data leak affects millions — investigation ongoing', src:'Krebs', url:'#', published:'2h ago', description:'Investigation ongoing into leaked records.'},
+          {title:'New ransomware strain actively targeting cloud backups', src:'The Hacker News', url:'#', published:'4h ago', description:'Operators targeting backup systems.'}
+        ];
+        list.innerHTML = '';
+        fallback.forEach(n => {
+          const card = document.createElement('div'); card.className='news-card';
+          card.innerHTML = '<div class="news-thumb"></div><div class="news-meta"><h4>' + escapeHtml(n.title) + '</h4><p>' + escapeHtml(n.src) + ' · ' + escapeHtml(n.published) + '</p><p>' + escapeHtml(n.description) + '</p><p style="margin-top:8px"><a class="btn btn-secondary" href="' + escapeHtml(n.url) + '" target="_blank">Read more</a></p></div>';
+          list.appendChild(card);
+        });
+      }
+    }
+
+    // small helper to avoid injecting HTML
+    function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"']/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]}); }
+
+    fetchNews();
+
+    // rotate daily tips
+    const tips=[
+      "Don't reuse passwords — use a manager.",
+      "Enable 2FA on important accounts.",
+      "Verify software checksums before installing.",
+      "Use disposable emails for signups when possible."
+    ];
+    let tipIdx= Math.floor(Math.random()*tips.length);
+    function rotateTip(){document.getElementById('dailyTip').textContent = tips[tipIdx]; tipIdx = (tipIdx+1)%tips.length}
+    setInterval(rotateTip, 24*60*60*1000); // daily
+    rotateTip();
+
+    // Helper: parse date strings to comparable timestamps; treat TBD/Ongoing as far-future
+    function parseDateForSort(s){
+      if(!s) return 9e15; // far future
+      const norm = String(s).trim().toLowerCase();
+      if(norm === 'tbd' || norm === 'ongoing' || norm === 'tba') return 9e15;
+      const t = Date.parse(s);
+      return isNaN(t) ? 9e15 : t;
+    }
+
+    // Determine status relative to today
+    function eventStatus(ev){
+      const today = Date.now();
+      const start = ev.start_date && Date.parse(ev.start_date);
+      const end = ev.end_date && Date.parse(ev.end_date);
+      if((ev.start_date && String(ev.start_date).toLowerCase()==='ongoing') || (start && !end && start <= today)) return 'live';
+      if(start && end && start <= today && today <= end) return 'live';
+      if(start && start > today) return 'upcoming';
+      return 'upcoming';
+    }
+
+    // Load CTF events from JSON and render into events grid
+    async function loadCTFEvents(){
+      const grid = document.getElementById('eventsGrid');
+      const search = document.getElementById('ctfSearch');
+      const filter = document.getElementById('ctfFilter');
+      grid.innerHTML = '<p style="color:var(--text-secondary)">Loading events…</p>';
+      let events = [];
+      // Use built-in default events (no external JSON required)
+      events = [
+        {
+          name: 'Hack with India',
+          platform: 'HackWithIndia',
+          logo: 'HWI',
+          mode: 'Online',
+          difficulty: 'Beginner',
+          start_date: '2026-02-10',
+          end_date: '2026-02-11',
+          reg_url: 'https://www.hackwithindia.com/',
+          region: 'global'
+        },
+        {
+          name: 'HackWithIndia – Winter CTF',
+          platform: 'HackWithIndia',
+          logo: 'HWI',
+          mode: 'Online',
+          difficulty: 'All Levels',
+          start_date: '2026-03-05',
+          end_date: '2026-03-07',
+          reg_url: 'https://www.hackwithindia.com/',
+          region: 'global'
+        },
+        {
+          name: 'Hack The Box – Weekly',
+          platform: 'HTB',
+          logo: 'HTB',
+          mode: 'Online',
+          difficulty: 'Intermediate',
+          start_date: 'Ongoing',
+          end_date: '',
+          reg_url: 'https://www.hackthebox.com/',
+          region: 'global'
+        },
+        {
+          name: 'TryHackMe – Advent of Cyber',
+          platform: 'THM',
+          logo: 'THM',
+          mode: 'Online',
+          difficulty: 'Beginner–Pro',
+          start_date: '',
+          end_date: '',
+          reg_url: 'https://tryhackme.com/',
+          region: 'global'
+        }
+      ];
+
+      // sort events: live first, then upcoming by nearest start date
+      events.sort((a,b)=>{
+        const sa = eventStatus(a) === 'live' ? -1 : (eventStatus(a) === 'upcoming' ? 0 : 1);
+        const sb = eventStatus(b) === 'live' ? -1 : (eventStatus(b) === 'upcoming' ? 0 : 1);
+        if(sa !== sb) return sa - sb;
+        return parseDateForSort(a.start_date) - parseDateForSort(b.start_date);
+      });
+
+      // populate ticker with live/upcoming items
+      const tickerEl = document.getElementById('ctfTicker');
+      if(tickerEl){
+        const items = events.map(ev => {
+          const status = eventStatus(ev);
+          const label = status === 'live' ? '🔴 LIVE' : '🟡 UPCOMING';
+          const name = ev.name || ev.platform || 'CTF';
+          const date = ev.start_date ? ev.start_date : 'TBD';
+          return '<span class="ticker-item"><span class="badge ' + status + '">' + label + '</span> <a href="' + (ev.reg_url||'#') + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(name) + '</a> — <small>' + escapeHtml(date) + '</small></span>';
+        }).join(' ');
+        // duplicate content for smooth scrolling if short
+        tickerEl.innerHTML = items + ' ' + items;
+      }
+
+      function matches(q, ev){
+        if(!q) return true;
+        q = q.toLowerCase();
+        return (ev.name && ev.name.toLowerCase().includes(q)) || (ev.platform && ev.platform.toLowerCase().includes(q)) || (ev.tags && ev.tags.join(' ').toLowerCase().includes(q));
+      }
+
+      function renderList(){
+        const q = search.value.trim();
+        const region = filter.value;
+        grid.innerHTML = '';
+          const filtered = events.filter(ev => (region==='all' || ev.region===region || (region==='global' && ev.region==='global')) && matches(q, ev));
+          // Ensure exactly four cards are shown. If fewer events, repeat the first event or show placeholders.
+          let toShow = [];
+          if(filtered.length >= 4){
+            toShow = filtered.slice(0,4);
+          } else if(filtered.length > 0){
+            for(let i=0;i<4;i++) toShow.push(filtered[i % filtered.length]);
+          } else {
+          
+  toShow = [
+    {
+      name: 'Hack with India',
+      platform: 'HackWithIndia',
+      logo: 'HWI',
+      mode: 'Online',
+      difficulty: 'Beginner',
+      start_date: '2026-02-10',
+      end_date: '2026-02-11',
+      reg_url: 'https://www.hackwithindia.com/'
+    },
+    {
+      name: 'HackWithIndia – Winter CTF',
+      platform: 'HackWithIndia',
+      logo: 'HWI',
+      mode: 'Online',
+      difficulty: 'All Levels',
+      start_date: '2026-03-05',
+      end_date: '2026-03-07',
+      reg_url: 'https://www.hackwithindia.com/'
+    },
+    {
+      name: 'Hack The Box – Weekly',
+      platform: 'HTB',
+      logo: 'HTB',
+      mode: 'Online',
+      difficulty: 'Intermediate',
+      start_date: 'Ongoing',
+      end_date: '',
+      reg_url: 'https://www.hackthebox.com/'
+    },
+    {
+      name: 'TryHackMe – Advent of Cyber',
+      platform: 'THM',
+      logo: 'THM',
+      mode: 'Online',
+      difficulty: 'Beginner–Pro',
+      start_date: '',
+      end_date: '',
+      reg_url: 'https://tryhackme.com/'
+    }
+  ];
+}
+
+
+          toShow.forEach(ev => {
+            const card = document.createElement('div'); card.className='event-card';
+            const logo = ev.logo || (ev.platform||'CTF').slice(0,3).toUpperCase();
+            const start = ev.start_date || ev.date || 'TBD';
+            const end = ev.end_date || '';
+            const status = eventStatus(ev);
+            const badgeLabel = status === 'live' ? 'LIVE' : 'UPCOMING';
+            const dateDisplay = end ? (escapeHtml(start) + ' — ' + escapeHtml(end)) : escapeHtml(start);
+            const reg = ev.reg_url && ev.reg_url.trim() && ev.reg_url !== '#' ? ev.reg_url.trim() : '';
+            card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:start;gap:8px">'
+              + '<div style="display:flex;align-items:center;gap:8px">'
+                + '<span class="badge ' + status.toLowerCase() + '">' + badgeLabel + '</span>'
+                + '<div class="event-logo">' + escapeHtml(logo) + '</div>'
+              + '</div>'
+            + '</div>'
+            + '<div class="event-meta">'
+                + '<h4>' + escapeHtml(ev.name) + '</h4>'
+                + '<div class="event-row"><span>Mode: ' + escapeHtml(ev.mode || 'Online') + '</span><span>Difficulty: ' + escapeHtml(ev.difficulty || 'Varies') + '</span></div>'
+                + '<div class="event-dates"><strong>Dates:</strong> ' + dateDisplay + '</div>'
+            + '</div>'
+            + (reg ? ('<div class="event-footer"><a class="event-cta" href="' + escapeHtml(reg) + '" target="_blank" rel="noopener noreferrer">Register</a></div>') : ('<div class="event-footer"><span class="event-cta" aria-disabled="true" style="opacity:0.6;pointer-events:none">Registration TBA</span></div>'));
+            grid.appendChild(card);
+          });
+      }
+
+      // wire search/filter
+      search.addEventListener('input', () => renderList());
+      filter.addEventListener('change', () => renderList());
+      document.getElementById('ctfRefresh').addEventListener('click', () => loadCTFEvents());
+
+      renderList();
+    }
+
+    // init events after page load
+    setTimeout(loadCTFEvents, 500);
+  </script>
+  <script src="./ads.js" defer></script>
+  <script src="./script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="monetag" content="6ba60e830ad87a9d9adc7f623aeb8aa8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/assets/logo.svg">
+    <title>Learning Roadmap - SN Security</title>
+    <meta name="description" content="SN Security - Lost phone report, OSINT tools, cyber safety platform. Secure your digital identity.">
+    <link rel="preload" href="/style.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/style.css"></noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        .roadmap-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+            background: url('https://mgx-backend-cdn.metadl.com/generate/images/456529/2025-12-28/91c6f2dd-0792-4b47-ad1f-6b69fd291e3f.png') center/cover;
+            position: relative;
+        }
+
+        .roadmap-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(1, 9, 19, 0.9) 0%, rgba(10, 26, 46, 0.8) 100%);
+        }
+
+        .roadmap-hero .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .roadmap-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .roadmap-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .roadmap-step::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--glow-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .roadmap-step:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 40px rgba(0, 255, 178, 0.2);
+            transform: translateX(10px);
+        }
+
+        .step-number {
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--glow-color);
+            z-index: 1;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            color: var(--accent-primary);
+        }
+
+        .step-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px var(--glow-color));
+        }
+
+        .roadmap-step h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-duration {
+            font-family: var(--font-mono);
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .topic-tag {
+            background: rgba(0, 255, 178, 0.1);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .topic-tag:hover {
+            background: rgba(0, 255, 178, 0.2);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .step-resources {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            text-shadow: 0 0 10px var(--glow-color);
+            transform: translateX(5px);
+        }
+
+        .roadmap-timeline {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        /* Wrapper to control timeline offset and left padding (replace inline styles) */
+        .roadmap-inner {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .roadmap-step::before,
+            .step-number {
+                display: none;
+            }
+
+            .roadmap-step {
+                margin-left: 0;
+            }
+
+            .roadmap-step:hover {
+                transform: translateY(-5px);
+            }
+
+            /* Mobile adjustments: reduce paddings, move timeline closer to edge */
+            .roadmap-inner {
+                padding-left: 12px;
+            }
+
+            .roadmap-container {
+                padding: 40px 12px;
+                max-width: 100%;
+            }
+
+            .roadmap-hero {
+                padding: 88px 16px 40px;
+                min-height: 48vh;
+            }
+
+            .roadmap-step {
+                padding: 1.25rem;
+            }
+
+            .roadmap-step h3 {
+                font-size: 1.25rem;
+            }
+
+            .roadmap-timeline {
+                left: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/index.html" class="nav-home" aria-label="SN Security Home">
+                    <img src="assets/logo.svg" alt="SN Security Logo" width="40" height="40" decoding="async" loading="lazy">
+                    <span>SN Security</span>
+                </a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="/roadmap.html" class="nav-link active">Roadmap</a></li>
+                <li><a href="tools.html" class="nav-link">Tools</a></li>
+                <li><a href="tech-store.html" class="nav-link">Store</a></li>
+                <li><a href="/udemy-courses.html" class="nav-link">Udemy Free Courses</a></li>
+                <li><a href="ctf-news.html" class="nav-link">CTF & News</a></li>
+                <li><a href="osint.html" class="nav-link">OSINT</a></li>
+                <li><a href="/about.html" class="nav-link">About</a></li>
+                <li><a href="/contact.html" class="nav-link">Contact</a></li>
+                <li><a href="/legal.html" class="nav-link">Legal</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="roadmap-hero">
+        <div class="hero-content">
+            <h1 class="hero-title neon-glow">LEARNING ROADMAP</h1>
+            <p class="hero-tagline">Your Path to Becoming an Ethical Hacker</p>
+        </div>
+    </section>
+
+    <div class="roadmap-container">
+        <div class="roadmap-inner">
+            <div class="roadmap-timeline"></div>
+
+            <div class="roadmap-step" data-aos="fade-left">
+                <div class="step-number">1</div>
+                <div class="step-header">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Fundamentals of Computing</h3>
+                        <div class="step-duration">Duration: 2-3 months</div>
+                    </div>
+                </div>
+                <p class="step-description">
+                    Build a strong foundation in computer science basics, networking, and operating systems. Understanding how systems work is crucial before learning how to break them.
+                </p>
+                <div class="step-topics">
+                    <span class="topic-tag">Computer Networks</span>
+                    <span class="topic-tag">Operating Systems</span>
+                    <span class="topic-tag">Linux Basics</span>
+                    <span class="topic-tag">TCP/IP Protocol</span>
+                    <span class="topic-tag">Command Line</span>
+                </div>
+                <div class="step-resources">
+                    <a href="#" class="resource-link">📚 Study Materials →</a>
+                    <a href="#" class="resource-link">🎥 Video Tutorials →</a>
+                </div>
+            </div>
+
+            <div class="roadmap-step" data-aos="fade-left" data-aos-delay="100">
+                <div class="step-number">2</div>
+                <div class="step-header">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"/>
+                            <polyline points="8 6 2 12 8 18"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Programming & Scripting</h3>
+                        <div class="step-duration">Duration: 3-4 months</div>
+                    </div>
+                </div>
+                <p class="step-description">
+                    Learn programming languages essential for security research and automation. Python is highly recommended for beginners, along with Bash scripting for Linux automation.
+                </p>
+                <div class="step-topics">
+                    <span class="topic-tag">Python Programming</span>
+                    <span class="topic-tag">Bash Scripting</span>
+                    <span class="topic-tag">JavaScript Basics</span>
+                    <span class="topic-tag">SQL Queries</span>
+                    <span class="topic-tag">Regular Expressions</span>
+                </div>
+                <div class="step-resources">
+                    <a href="#" class="resource-link">💻 Code Examples →</a>
+                    <a href="#" class="resource-link">🔧 Practice Labs →</a>
+                </div>
+            </div>
+
+            <div class="roadmap-step" data-aos="fade-left" data-aos-delay="200">
+                <div class="step-number">3</div>
+                <div class="step-header">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Web Technologies & Security</h3>
+                        <div class="step-duration">Duration: 2-3 months</div>
+                    </div>
+                </div>
+                <p class="step-description">
+                    Understand how web applications work, including client-server architecture, HTTP protocols, and common web vulnerabilities like XSS, CSRF, and SQL injection.
+                </p>
+                <div class="step-topics">
+                    <span class="topic-tag">HTML/CSS/JavaScript</span>
+                    <span class="topic-tag">HTTP/HTTPS</span>
+                    <span class="topic-tag">Web APIs</span>
+                    <span class="topic-tag">OWASP Top 10</span>
+                    <span class="topic-tag">Burp Suite</span>
+                </div>
+                <div class="step-resources">
+                    <a href="#" class="resource-link">🌐 Web Security Guide →</a>
+                    <a href="tools.html" class="resource-link">🛠️ Security Tools →</a>
+                </div>
+            </div>
+
+            <div class="roadmap-step" data-aos="fade-left" data-aos-delay="300">
+                <div class="step-number">4</div>
+                <div class="step-header">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Vulnerability Assessment</h3>
+                        <div class="step-duration">Duration: 3-4 months</div>
+                    </div>
+                </div>
+                <p class="step-description">
+                    Learn to identify security weaknesses in systems and applications. Master vulnerability scanning tools and understand how to analyze and report findings.
+                </p>
+                <div class="step-topics">
+                    <span class="topic-tag">Nmap Scanning</span>
+                    <span class="topic-tag">Nessus</span>
+                    <span class="topic-tag">OpenVAS</span>
+                    <span class="topic-tag">Vulnerability Databases</span>
+                    <span class="topic-tag">Risk Assessment</span>
+                </div>
+                <div class="step-resources">
+                    <a href="#" class="resource-link">🔍 Scanning Techniques →</a>
+                    <a href="#" class="resource-link">📊 Reporting Templates →</a>
+                </div>
+            </div>
+
+            <div class="roadmap-step" data-aos="fade-left" data-aos-delay="400">
+                <div class="step-number">5</div>
+                <div class="step-header">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <path d="M9 12l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Penetration Testing</h3>
+                        <div class="step-duration">Duration: 4-6 months</div>
+                    </div>
+                </div>
+                <p class="step-description">
+                    Master the art of ethical hacking through hands-on penetration testing. Learn exploitation techniques, privilege escalation, and post-exploitation methods.
+                </p>
+                <div class="step-topics">
+                    <span class="topic-tag">Metasploit Framework</span>
+                    <span class="topic-tag">Exploitation Techniques</span>
+                    <span class="topic-tag">Privilege Escalation</span>
+                    <span class="topic-tag">Password Cracking</span>
+                    <span class="topic-tag">Social Engineering</span>
+                </div>
+                <div class="step-resources">
+                    <a href="tools.html" class="resource-link">⚔️ Pentesting Tools →</a>
+                    <a href="ctf-news.html" class="resource-link">🏆 Practice CTFs →</a>
+                </div>
+            </div>
+
+            <div class="roadmap-step" data-aos="fade-left" data-aos-delay="500">
+                <div class="step-number">6</div>
+                <div class="step-header">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>OSINT & Reconnaissance</h3>
+                        <div class="step-duration">Duration: 2-3 months</div>
+                    </div>
+                </div>
+                <p class="step-description">
+                    Master open-source intelligence gathering techniques. Learn to collect and analyze publicly available information for security assessments.
+                </p>
+                <div class="step-topics">
+                    <span class="topic-tag">Information Gathering</span>
+                    <span class="topic-tag">Social Media Analysis</span>
+                    <span class="topic-tag">Domain Enumeration</span>
+                    <span class="topic-tag">Metadata Analysis</span>
+                    <span class="topic-tag">Footprinting</span>
+                </div>
+                <div class="step-resources">
+                    <a href="osint.html" class="resource-link">🔎 OSINT Tools →</a>
+                    <a href="#" class="resource-link">📖 OSINT Framework →</a>
+                </div>
+            </div>
+
+            <div class="roadmap-step" data-aos="fade-left" data-aos-delay="600">
+                <div class="step-number">7</div>
+                <div class="step-header">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Certification & Career</h3>
+                        <div class="step-duration">Duration: Ongoing</div>
+                    </div>
+                </div>
+                <p class="step-description">
+                    Pursue industry-recognized certifications and build your professional career. Continue learning through bug bounties, CTF competitions, and real-world projects.
+                </p>
+                <div class="step-topics">
+                    <span class="topic-tag">CEH Certification</span>
+                    <span class="topic-tag">OSCP</span>
+                    <span class="topic-tag">Bug Bounty Programs</span>
+                    <span class="topic-tag">Security Research</span>
+                    <span class="topic-tag">Continuous Learning</span>
+                </div>
+                <div class="step-resources">
+                    <a href="#" class="resource-link">🎓 Certifications →</a>
+                    <a href="contact.html" class="resource-link">💼 Career Guidance →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2 class="neon-glow">Ready to Start Your Journey?</h2>
+                <p>Follow this roadmap and become a skilled ethical hacker. Practice makes perfect!</p>
+                <div class="cta-buttons">
+                    <a href="tools.html" class="btn btn-primary btn-large">Explore Tools</a>
+                    <a href="ctf-news.html" class="btn btn-secondary btn-large">Practice CTFs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="index.html" class="footer-home" aria-label="SN Security Home">
+                            <img src="assets/logo.svg" alt="SN Security" width="40" height="40" decoding="async" loading="lazy">
+                            <span>SN Security</span>
+                        </a>
+                    </div>
+                    <p class="footer-tagline">Learn Hacking. Secure Future.</p>
+                    <div class="social-links">
+                        <a href="https://x.com/" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/sahebsheikh25" class="social-link" aria-label="GitHub" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/sahebsheikh/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/roadmap.html">Roadmap</a></li>
+                        <li><a href="tools.html">Tools</a></li>
+                        <li><a href="osint.html">OSINT</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="ctf-news.html">CTF & News</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/legal.html">Privacy Policy</a></li>
+                        <li><a href="/legal.html">Terms of Service</a></li>
+                        <li><a href="/legal.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SN Security. All rights reserved. | Designed for ethical hacking education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
+    <script src="./ads.js" defer></script>
+    <script src="./script.js" defer></script>
+</body>
+</html>

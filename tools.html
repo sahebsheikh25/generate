@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="monetag" content="6ba60e830ad87a9d9adc7f623aeb8aa8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/logo.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./assets/logo.svg">
+    <title>Ethical Hacking Tools - SN Security</title>
+    <meta name="description" content="SN Security - Lost phone report, OSINT tools, cyber safety platform. Secure your digital identity.">
+    <link rel="preload" href="./style.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="./style.css"></noscript>
+    <link rel="preload" href="https://mgx-backend-cdn.metadl.com/generate/images/456529/2025-12-28/844b1999-ec03-42e7-b269-e10bcfbfd467.png" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        .tools-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+            background: url('https://mgx-backend-cdn.metadl.com/generate/images/456529/2025-12-28/844b1999-ec03-42e7-b269-e10bcfbfd467.png') center/cover;
+            position: relative;
+        }
+
+        .tools-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(1, 9, 19, 0.9) 0%, rgba(10, 26, 46, 0.8) 100%);
+        }
+
+        .tools-hero .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 80px 20px;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 255, 178, 0.3);
+            border-color: var(--accent-primary);
+        }
+
+        .tool-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tool-icon {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 1.5rem;
+            background: rgba(0, 255, 178, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-primary);
+        }
+
+        .tool-icon svg {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 0 10px var(--glow-color));
+        }
+
+        .tool-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-category {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .tool-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-tag {
+            background: rgba(0, 255, 178, 0.1);
+            border: 1px solid var(--border-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tool-link:hover {
+            text-shadow: 0 0 10px var(--glow-color);
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="nav-home" aria-label="SN Security Home">
+                    <img src="assets/logo.svg" alt="SN Security Logo" width="40" height="40" decoding="async" loading="lazy">
+                    <span>SN Security</span>
+                </a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/index.html" class="nav-link">Home</a></li>
+                <li><a href="/roadmap.html" class="nav-link">Roadmap</a></li>
+                <li><a href="/tools.html" class="nav-link active">Tools</a></li>
+                <li><a href="/tech-store.html" class="nav-link">Store</a></li>
+                <li><a href="/ctf-news.html" class="nav-link">CTF & News</a></li>
+                <li><a href="/osint.html" class="nav-link">OSINT</a></li>
+                <li><a href="/about.html" class="nav-link">About</a></li>
+                <li><a href="/contact.html" class="nav-link">Contact</a></li>
+                <li><a href="/legal.html" class="nav-link">Legal</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="tools-hero">
+        <div class="hero-content">
+            <h1 class="hero-title neon-glow">HACKING TOOLS</h1>
+        
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- Network Tools -->
+        <div class="section-header">
+            <h2 class="section-title">Network Tools</h2>
+            <p class="section-subtitle">Discovery, scanning and network analysis utilities.</p>
+        </div>
+        <div class="tools-grid" data-category="network">
+            <!-- Nmap -->
+            <div class="tool-card" data-category="network" data-aos="fade-up">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
+                <h3>Nmap</h3>
+                <div class="tool-category">Network Scanner</div>
+                <p class="tool-description">Network exploration tool and security scanner for discovering hosts and services.</p>
+                <div class="tool-tags"><span class="tool-tag">Port Scanning</span><span class="tool-tag">Service Detection</span></div>
+                <a href="https://nmap.org/download" class="tool-link">Learn More →</a>
+            </div>
+
+            <!-- Amass -->
+            <div class="tool-card" data-category="network" data-aos="fade-up" data-aos-delay="50">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg></div>
+                <h3>Amass</h3>
+                <div class="tool-category">DNS & Subdomain Discovery</div>
+                <p class="tool-description">Powerful reconnaissance tool for DNS enumeration and subdomain discovery.</p>
+                <div class="tool-tags"><span class="tool-tag">OSINT</span><span class="tool-tag">Enumeration</span></div>
+                <a href="https://github.com/OWASP/Amass" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- Wireshark -->
+            <div class="tool-card" data-category="network" data-aos="fade-up" data-aos-delay="100">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                <h3>Wireshark</h3>
+                <div class="tool-category">Network Protocol Analyzer</div>
+                <p class="tool-description">Capture and analyze network traffic with deep protocol inspection.</p>
+                <div class="tool-tags"><span class="tool-tag">Packet Capture</span><span class="tool-tag">Inspection</span></div>
+                <a href="https://www.wireshark.org/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- Responder -->
+            <div class="tool-card" data-category="network" data-aos="fade-up" data-aos-delay="150">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/></svg></div>
+                <h3>Responder</h3>
+                <div class="tool-category">Network Poisoning</div>
+                <p class="tool-description">LLMNR/NBT-NS/MDNS poisoner for capturing network credentials on Windows networks.</p>
+                <div class="tool-tags"><span class="tool-tag">Credential Capture</span><span class="tool-tag">Poisoning</span></div>
+                <a href="https://github.com/SpiderLabs/Responder" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- Enum4linux -->
+            <div class="tool-card" data-category="network" data-aos="fade-up" data-aos-delay="200">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg></div>
+                <h3>Enum4linux</h3>
+                <div class="tool-category">SMB Enumeration</div>
+                <p class="tool-description">Enumerate shares, users and policies from Windows and Samba hosts.</p>
+                <div class="tool-tags"><span class="tool-tag">SMB</span><span class="tool-tag">Enumeration</span></div>
+                <a href="https://github.com/SpiderLabs/enum4linux" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+        </div>
+
+        <!-- Web & Application Security -->
+        <div class="section-header">
+            <h2 class="section-title">Web & Application Security</h2>
+            <p class="section-subtitle">Tools for web testing, scanning and application security.</p>
+        </div>
+        <div class="tools-grid" data-category="web">
+            <!-- Burp Suite -->
+            <div class="tool-card" data-category="web" data-aos="fade-up">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+                <h3>Burp Suite</h3>
+                <div class="tool-category">Web Application Security</div>
+                <p class="tool-description">Integrated platform for testing web applications with proxy, scanner and intruder.</p>
+                <div class="tool-tags"><span class="tool-tag">Proxy</span><span class="tool-tag">Scanner</span></div>
+                <a href="https://portswigger.net/burp" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- OWASP ZAP -->
+            <div class="tool-card" data-category="web" data-aos="fade-up" data-aos-delay="50">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                <h3>OWASP ZAP</h3>
+                <div class="tool-category">Web App Security</div>
+                <p class="tool-description">Open-source web application scanner for finding vulnerabilities.</p>
+                <div class="tool-tags"><span class="tool-tag">Active Scan</span><span class="tool-tag">Passive Scan</span></div>
+                <a href="https://www.zaproxy.org/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- SQLmap -->
+            <div class="tool-card" data-category="web" data-aos="fade-up" data-aos-delay="100">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/></svg></div>
+                <h3>Sqlmap</h3>
+                <div class="tool-category">SQL Injection</div>
+                <p class="tool-description">Automated tool for detecting and exploiting SQL injection flaws.</p>
+                <div class="tool-tags"><span class="tool-tag">SQLi</span><span class="tool-tag">Automation</span></div>
+                <a href="https://sqlmap.org/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- Nikto -->
+            <div class="tool-card" data-category="web" data-aos="fade-up" data-aos-delay="150">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
+                <h3>Nikto</h3>
+                <div class="tool-category">Web Server Scanner</div>
+                <p class="tool-description">Performs comprehensive tests against web servers for vulnerabilities.</p>
+                <div class="tool-tags"><span class="tool-tag">Server Scan</span><span class="tool-tag">Vulnerabilities</span></div>
+                <a href="https://cirt.net/Nikto2" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- Gobuster -->
+            <div class="tool-card" data-category="web" data-aos="fade-up" data-aos-delay="200">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg></div>
+                <h3>Gobuster</h3>
+                <div class="tool-category">Directory Brute Forcer</div>
+                <p class="tool-description">Fast directory and DNS brute-forcing tool written in Go.</p>
+                <div class="tool-tags"><span class="tool-tag">Enumeration</span><span class="tool-tag">Fast</span></div>
+                <a href="https://github.com/OJ/gobuster" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+        </div>
+
+        <!-- Exploitation & Frameworks -->
+        <div class="section-header">
+            <h2 class="section-title">Exploitation & Frameworks</h2>
+            <p class="section-subtitle">Frameworks and tools for exploitation and post-exploitation.</p>
+        </div>
+        <div class="tools-grid" data-category="exploitation">
+            <!-- Metasploit -->
+            <div class="tool-card" data-category="exploitation" data-aos="fade-up">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div>
+                <h3>Metasploit</h3>
+                <div class="tool-category">Exploitation Framework</div>
+                <p class="tool-description">Framework for developing and executing exploits against remote targets.</p>
+                <div class="tool-tags"><span class="tool-tag">Exploitation</span><span class="tool-tag">Payloads</span></div>
+                <a href="https://www.metasploit.com/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- BeEF -->
+            <div class="tool-card" data-category="exploitation" data-aos="fade-up" data-aos-delay="50">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4"/></svg></div>
+                <h3>BeEF</h3>
+                <div class="tool-category">Browser Exploitation</div>
+                <p class="tool-description">Browser Exploitation Framework focusing on client-side vectors.</p>
+                <div class="tool-tags"><span class="tool-tag">XSS</span><span class="tool-tag">Client-Side</span></div>
+                <a href="https://github.com/beefproject/beef" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <!-- Recon-ng -->
+            <div class="tool-card" data-category="exploitation" data-aos="fade-up" data-aos-delay="100">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg></div>
+                <h3>Recon-ng</h3>
+                <div class="tool-category">Reconnaissance Framework</div>
+                <p class="tool-description">Modular web reconnaissance framework for OSINT gathering.</p>
+                <div class="tool-tags"><span class="tool-tag">OSINT</span><span class="tool-tag">Modules</span></div>
+                <a href="https://github.com/lanmaster53/recon-ng" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+        </div>
+
+        <!-- Wireless -->
+        <div class="section-header">
+            <h2 class="section-title">Wireless Security</h2>
+            <p class="section-subtitle">Tools focused on wireless network assessment and cracking.</p>
+        </div>
+        <div class="tools-grid" data-category="wireless">
+            <div class="tool-card" data-category="wireless" data-aos="fade-up">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/></svg></div>
+                <h3>Aircrack-ng</h3>
+                <div class="tool-category">Wireless Security</div>
+                <p class="tool-description">Suite for assessing Wi‑Fi security: capture, injection and cracking.</p>
+                <div class="tool-tags"><span class="tool-tag">WiFi</span><span class="tool-tag">Cracking</span></div>
+                <a href="https://www.aircrack-ng.org/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+        </div>
+
+        <!-- Passwords & Cracking -->
+        <div class="section-header">
+            <h2 class="section-title">Password & Cracking</h2>
+            <p class="section-subtitle">Tools for password recovery, hash cracking and brute force.</p>
+        </div>
+        <div class="tools-grid" data-category="passwords">
+            <div class="tool-card" data-category="passwords" data-aos="fade-up">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/></svg></div>
+                <h3>John the Ripper</h3>
+                <div class="tool-category">Password Cracker</div>
+                <p class="tool-description">Fast password cracker for many hash types and modes.</p>
+                <div class="tool-tags"><span class="tool-tag">Cracking</span><span class="tool-tag">Dictionary</span></div>
+                <a href="https://www.openwall.com/john/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <div class="tool-card" data-category="passwords" data-aos="fade-up" data-aos-delay="50">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73"/></svg></div>
+                <h3>Hashcat</h3>
+                <div class="tool-category">Password Recovery</div>
+                <p class="tool-description">GPU-accelerated password recovery tool for many hash algorithms.</p>
+                <div class="tool-tags"><span class="tool-tag">GPU</span><span class="tool-tag">Multi-Hash</span></div>
+                <a href="https://hashcat.net/hashcat/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <div class="tool-card" data-category="passwords" data-aos="fade-up" data-aos-delay="100">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5"/></svg></div>
+                <h3>Hydra</h3>
+                <div class="tool-category">Login Cracker</div>
+                <p class="tool-description">Fast login cracker supporting many protocols for password auditing.</p>
+                <div class="tool-tags"><span class="tool-tag">Brute Force</span><span class="tool-tag">Multi-Protocol</span></div>
+                <a href="https://github.com/vanhauser-thc/thc-hydra" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+        </div>
+
+        <!-- Scanners & Vulnerability -->
+        <div class="section-header">
+            <h2 class="section-title">Scanners & Vulnerability</h2>
+            <p class="section-subtitle">Automated scanners and vulnerability assessment tools.</p>
+        </div>
+        <div class="tools-grid" data-category="scanners">
+            <div class="tool-card" data-category="scanners" data-aos="fade-up">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5"/></svg></div>
+                <h3>Nessus</h3>
+                <div class="tool-category">Vulnerability Scanner</div>
+                <p class="tool-description">Comprehensive vulnerability scanner for identifying security issues and compliance gaps.</p>
+                <div class="tool-tags"><span class="tool-tag">Vulnerabilities</span><span class="tool-tag">Compliance</span></div>
+                <a href="https://www.tenable.com/products/nessus" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+        </div>
+
+        <!-- OSINT & Analysis -->
+        <div class="section-header">
+            <h2 class="section-title">OSINT & Analysis</h2>
+            <p class="section-subtitle">Tools for intelligence gathering, reverse engineering and analysis.</p>
+        </div>
+        <div class="tools-grid" data-category="osint">
+            <div class="tool-card" data-category="osint" data-aos="fade-up">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
+                <h3>Maltego</h3>
+                <div class="tool-category">OSINT & Forensics</div>
+                <p class="tool-description">Interactive data mining and link analysis tool for intelligence gathering.</p>
+                <div class="tool-tags"><span class="tool-tag">OSINT</span><span class="tool-tag">Link Analysis</span></div>
+                <a href="https://www.maltego.com/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <div class="tool-card" data-category="osint" data-aos="fade-up" data-aos-delay="50">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/></svg></div>
+                <h3>Ghidra</h3>
+                <div class="tool-category">Reverse Engineering</div>
+                <p class="tool-description">NSA open-source reverse engineering framework for static analysis.</p>
+                <div class="tool-tags"><span class="tool-tag">Reverse Engineering</span><span class="tool-tag">Static Analysis</span></div>
+                <a href="https://ghidra-sre.org/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <div class="tool-card" data-category="osint" data-aos="fade-up" data-aos-delay="100">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/></svg></div>
+                <h3>Radare2</h3>
+                <div class="tool-category">Reverse Engineering</div>
+                <p class="tool-description">Lightweight reverse engineering toolkit and disassembler for binary analysis.</p>
+                <div class="tool-tags"><span class="tool-tag">RE</span><span class="tool-tag">Disassembler</span></div>
+                <a href="https://rada.re/n/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+
+            <div class="tool-card" data-category="osint" data-aos="fade-up" data-aos-delay="150">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
+                <h3>Frida</h3>
+                <div class="tool-category">Dynamic Instrumentation</div>
+                <p class="tool-description">Dynamic instrumentation toolkit for hooking and tampering with applications at runtime.</p>
+                <div class="tool-tags"><span class="tool-tag">Instrumentation</span><span class="tool-tag">Runtime</span></div>
+                <a href="https://frida.re/" class="tool-link" target="_blank" rel="noopener noreferrer">Learn More →</a>
+            </div>
+        </div>
+
+        <!-- Misc & Forensics -->
+        <div class="section-header">
+            <h2 class="section-title">Misc & Forensics</h2>
+            <p class="section-subtitle">Other useful security and forensic tools.</p>
+        </div>
+        <div class="tools-grid" data-category="misc">
+            <div class="tool-card" data-category="misc" data-aos="fade-up">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/></svg></div>
+                <h3>Mimikatz</h3>
+                <div class="tool-category">Credential Dumping</div>
+                <p class="tool-description">Post-exploitation tool for extracting credentials and Kerberos tickets from memory.</p>
+                <div class="tool-tags"><span class="tool-tag">Windows</span><span class="tool-tag">Credentials</span></div>
+                <a href="tool-detail.html?tool=mimikatz" class="tool-link">Learn More →</a>
+            </div>
+
+            <div class="tool-card" data-category="misc" data-aos="fade-up" data-aos-delay="50">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18"/></svg></div>
+                <h3>TruffleHog</h3>
+                <div class="tool-category">Secrets Scanning</div>
+                <p class="tool-description">Searches git repositories for high-entropy strings and secrets.</p>
+                <div class="tool-tags"><span class="tool-tag">Secrets</span><span class="tool-tag">Git</span></div>
+                <a href="tool-detail.html?tool=trufflehog" class="tool-link">Learn More →</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2 class="neon-glow">Master These Tools</h2>
+                <p>Practice makes perfect. Start learning and experimenting with these powerful security tools.</p>
+                <div class="cta-buttons">
+                    <a href="/roadmap.html" class="btn btn-primary btn-large">View Learning Path</a>
+                    <a href="ctf-news.html" class="btn btn-secondary btn-large">Practice CTFs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="index.html" class="footer-home" aria-label="SN Security Home">
+                            <img src="assets/logo.svg" alt="SN Security" width="40" height="40" decoding="async" loading="lazy">
+                            <span>SN Security</span>
+                        </a>
+                    </div>
+                    <p class="footer-tagline">Learn Hacking. Secure Future.</p>
+                    <div class="social-links">
+                        <a href="https://x.com/" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/sahebsheikh25" class="social-link" aria-label="GitHub" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/sahebsheikh/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="/roadmap.html">Roadmap</a></li>
+                            <li><a href="/tools.html">Tools</a></li>
+                            <li><a href="/osint.html">OSINT</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                            <li><a href="/ctf-news.html">CTF & News</a></li>
+                            <li><a href="/about.html">About Us</a></li>
+                            <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/legal.html">Privacy Policy</a></li>
+                        <li><a href="/legal.html">Terms of Service</a></li>
+                        <li><a href="/legal.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SN Security. All rights reserved. | Designed for ethical hacking education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
+    <script src="./ads.js" defer></script>
+    <script src="./script.js" defer></script>
+</body>
+</html>

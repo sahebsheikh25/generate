@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="monetag" content="6ba60e830ad87a9d9adc7f623aeb8aa8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>404 - Not Found · SN Security</title>
+    <meta name="description" content="SN Security - Lost phone report, OSINT tools, cyber safety platform. Secure your digital identity.">
+    <link rel="preload" href="/style.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/style.css"></noscript>
+    <style>
+        body { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+        .error-card{ max-width:920px; text-align:center; padding:48px; border-radius:16px; background:var(--bg-card); border:1px solid var(--border-color); box-shadow:0 8px 40px rgba(0,255,178,0.06); }
+        .error-code{ font-family:var(--font-heading); font-size:6rem; font-weight:900; color:var(--accent-primary); margin-bottom:8px; text-shadow:0 0 30px var(--glow-color); }
+        .error-message{ font-size:1.25rem; color:var(--text-secondary); margin-bottom:20px; }
+        .error-actions{ display:flex; gap:12px; justify-content:center; margin-top:20px; }
+        .muted { color:var(--text-secondary); margin-top:12px; }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <main class="error-card container">
+        <div class="error-code neon-glow">404</div>
+        <h1 class="hero-title">Page Not Found</h1>
+        <p class="error-message">We couldn't find the page you're looking for. It may have been moved or deleted.</p>
+        <div class="error-actions">
+            <a href="index.html" class="btn btn-primary">Go to Homepage</a>
+            <a href="roadmap.html" class="btn btn-secondary">Learning Roadmap</a>
+            <a id="reportLink" class="btn btn-light" href="mailto:hello@example.com?subject=Broken%20link%20on%20SN%20Security">Report Issue</a>
+        </div>
+        <p class="muted">You'll be redirected to the homepage in <span id="count">10</span>s — <a href="index.html">or click here</a>.</p>
+    </main>
+
+    <script>
+        // countdown and redirect
+        (function(){
+            var sec = 10; var el = document.getElementById('count');
+            var t = setInterval(function(){ sec--; el.textContent = sec; if(sec<=0){ clearInterval(t); window.location.href = 'index.html'; } }, 1000);
+        })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</body>
+</html>

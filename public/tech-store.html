@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tech Store – SN Security</title>
+
+  <meta name="monetag" content="6ba60e830ad87a9d9adc7f623aeb8aa8">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="store.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Page-specific: stylish back button */
+    .back-btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(90deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));color:var(--text-primary);font-weight:800;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,0.28);transition:transform .14s ease,box-shadow .14s ease}
+    .back-btn svg{width:18px;height:18px;opacity:0.95}
+    .back-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.36)}
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <a href="index.html">
+        <img src="assets/logo.svg" alt="SN Security">
+        <span>SN Security</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main class="container store-main">
+  <header class="store-header">
+    <div class="store-brand">
+      <img class="store-logo" src="assets/logo.svg" alt="SN Security store logo">
+      <div>
+        <h1>Tech Store</h1>
+        <div class="sub">Hand-picked gear & tools for security enthusiasts</div>
+      </div>
+    </div>
+
+    <div class="store-controls">
+      <a id="backLink" class="back-btn" href="/index.html" role="button" aria-label="Go back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to Home</span>
+      </a>
+      <div class="search-wrap">
+        <input id="searchInput" placeholder="Search products, keywords..." aria-label="Search products">
+        <button id="clearSearch" title="Clear search">✕</button>
+      </div>
+
+      <div class="filters" role="tablist" aria-label="Product categories">
+        <button class="filter-btn active" data-cat="all">All</button>
+        <button class="filter-btn" data-cat="hardware">Hardware</button>
+        <button class="filter-btn" data-cat="software">Software</button>
+        <button class="filter-btn" data-cat="accessories">Accessories</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="store-main">
+    <div id="productGrid" class="product-grid" aria-live="polite"></div>
+  </section>
+</main>
+
+<!-- Modal -->
+<div id="productModal" class="modal" aria-hidden="true">
+  <div class="modal-panel">
+    <button class="modal-close" aria-label="Close">✕</button>
+    <div class="modal-body">
+      <img id="modalImg" src="" alt="Product image">
+      <div class="modal-info">
+        <h2 id="modalTitle"></h2>
+        <div id="modalCategory" class="muted"></div>
+        <p id="modalDesc"></p>
+        <div class="modal-actions">
+          <button id="modalBuy" class="btn neon">Buy / Open</button>
+          <button id="modalClose" class="btn ghost">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" aria-hidden="true"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="/index.html" class="footer-home" aria-label="SN Security Home">
+                            <img src="/assets/logo.svg" alt="SN Security" width="40" height="40" decoding="async" loading="lazy">
+                            <span>SN Security</span>
+                        </a>
+                    </div>
+                    <p class="footer-tagline">Learn Hacking. Secure Future.</p>
+                    <div class="social-links">
+                        <a href="https://x.com/" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                        </a>
+                        <a href="https://github.com/sahebsheikh25" class="social-link" aria-label="GitHub" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/sahebsheikh/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/roadmap.html">Roadmap</a></li>
+                        <li><a href="/tools.html">Tools</a></li>
+                        <li><a href="/osint.html">OSINT</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="/ctf-news.html">CTF & News</a></li>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                      <li><a href="/legal.html">Privacy Policy</a></li>
+                      <li><a href="/legal.html">Terms of Service</a></li>
+                      <li><a href="/legal.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SN Security. All rights reserved. | Designed for ethical hacking education.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+  // Back button: prefer history.back(), fallback to homepage
+  (function(){
+    const btn = document.getElementById('backLink');
+    if(!btn) return;
+    btn.addEventListener('click', function(e){
+      if(window.history && window.history.length > 1){
+        e.preventDefault();
+        window.history.back();
+      }
+    });
+  })();
+</script>
+
+<script src="store.js"></script>
+</body>
+</html>

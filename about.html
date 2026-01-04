@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta name="monetag" content="6ba60e830ad87a9d9adc7f623aeb8aa8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About — SN Security</title>
+  <meta name="description" content="SN Security - Lost phone report, OSINT tools, cyber safety platform. Secure your digital identity.">
+  <link rel="preload" href="./style.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./style.css"></noscript>
+  <style>
+    /* Cyber-grid canvas for hero */
+    .grid-canvas{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.28}
+    .tools-hero{position:relative;overflow:hidden}
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="./index.html" class="nav-home" aria-label="SN Security Home">
+          <img src="./assets/logo.svg" alt="SN Security Logo" width="40" height="40" decoding="async" loading="lazy">
+          <span>SN Security</span>
+        </a>
+      </div>
+      <div class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="roadmap.html" class="nav-link">Roadmap</a></li>
+        <li><a href="tools.html" class="nav-link">Tools</a></li>
+        <li><a href="tech-store.html" class="nav-link">Store</a></li>
+        <li><a href="ctf-news.html" class="nav-link">CTF & News</a></li>
+        <li><a href="osint.html" class="nav-link">OSINT</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="./legal.html" class="nav-link">Legal</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="tools-hero">
+    <canvas id="cyberGrid" class="grid-canvas" aria-hidden="true"></canvas>
+    <div class="hero-content">
+      <h1 class="hero-title neon-glow">About SN Security</h1>
+      <p class="hero-tagline">Practical tooling, guides and resources for security researchers.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <section style="padding:40px 0;">
+      <h2 class="section-title">About Us</h2>
+      <p class="section-subtitle">We are a cybersecurity learning community built for future defenders. Our mission is to make cyber-awareness simple, accessible, and powerful for everyone.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:28px;">
+        <div class="intro-card">
+          <h3>Accessible Learning</h3>
+          <p>Clear, hands-on guides and curated toolsets that lower the barrier to entry for learners at all levels.</p>
+          <p><a class="btn btn-secondary" href="roadmap.html">Explore Roadmap</a></p>
+        </div>
+
+        <div class="intro-card">
+          <h3>Hands-on Labs</h3>
+          <p>Practical exercises, CTF-style challenges, and guided walkthroughs to build real skills, not just theory.</p>
+          <p><a class="btn btn-primary" href="ctf-news.html#events">Join CTFs</a></p>
+        </div>
+
+        <div class="intro-card">
+          <h3>Community & Mentorship</h3>
+          <p>Peer-driven learning, community-contributed resources, and mentorship paths to help you progress faster.</p>
+          <p><a class="btn btn-light" href="contact.html">Get Involved</a></p>
+        </div>
+      </div>
+
+      <section style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="intro-card">
+          <h3>Responsible Use</h3>
+          <p class="section-subtitle">All published materials are intended for lawful security research, defense, and education. Please use tools and techniques ethically and within the law.</p>
+        </div>
+        <div class="intro-card">
+          <h3>Contributors & Credits</h3>
+          <p class="section-subtitle">We aggregate community projects and open-source tools. Full credit to original authors — check individual tool pages for licenses and attribution.</p>
+        </div>
+      </section>
+    </section>
+  </div>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="footer-logo">
+            <a href="/index.html" class="footer-home" aria-label="SN Security Home">
+              <img src="/assets/logo.svg" alt="SN Security" width="40" height="40" decoding="async" loading="lazy">
+              <span>SN Security</span>
+            </a>
+          </div>
+          <p class="footer-tagline">Learn Hacking. Secure Future.</p>
+          <div class="social-links">
+            <a href="https://x.com/" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/sahebsheikh25" class="social-link" aria-label="GitHub" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/sahebsheikh/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/roadmap.html">Roadmap</a></li>
+            <li><a href="/tools.html">Tools</a></li>
+            <li><a href="/osint.html">OSINT</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="/ctf-news.html">CTF & News</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="/legal.html">Privacy Policy</a></li>
+              <li><a href="/legal.html">Terms of Service</a></li>
+              <li><a href="/legal.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SN Security. All rights reserved. | Designed for ethical hacking education.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
+  <script src="./script.js" defer></script>
+  <script>
+    // Cyber-grid animation for About hero
+    (function(){
+      const canvas = document.getElementById('cyberGrid');
+      const hero = document.querySelector('.tools-hero');
+      if(!canvas || !hero) return;
+      const ctx = canvas.getContext('2d');
+      function resize(){
+        canvas.width = window.innerWidth;
+        canvas.height = hero.offsetHeight || 400;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      let offset = 0;
+      function draw(){
+        const w = canvas.width, h = canvas.height;
+        ctx.clearRect(0,0,w,h);
+        // subtle background wash
+        const g = ctx.createLinearGradient(0,0,w, h);
+        g.addColorStop(0,'rgba(0,10,20,0.0)');
+        g.addColorStop(1,'rgba(0,20,40,0.05)');
+        ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+
+        ctx.lineWidth = 1;
+        // vertical lines
+        const spacing = 40;
+        ctx.strokeStyle = 'rgba(0,200,255,0.08)';
+        for(let x = (offset%spacing)-spacing; x < w; x += spacing){
+          ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke();
+        }
+        // horizontal grid
+        ctx.strokeStyle = 'rgba(0,255,180,0.04)';
+        for(let y = 0; y < h; y += spacing){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+
+        // glowing scan line
+        const scanY = (offset*0.6) % (h+200) - 100;
+        const lg = ctx.createLinearGradient(0,scanY-40,0,scanY+40);
+        lg.addColorStop(0,'rgba(0,255,180,0)'); lg.addColorStop(0.5,'rgba(0,255,180,0.12)'); lg.addColorStop(1,'rgba(0,255,180,0)');
+        ctx.fillStyle = lg; ctx.fillRect(0, scanY-40, w, 80);
+
+        offset += 0.6;
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+    })();
+  </script>
+</body>
+</html>
+

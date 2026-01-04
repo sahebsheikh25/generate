@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="monetag" content="6ba60e830ad87a9d9adc7f623aeb8aa8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OSINT Tools & Resources - SN Security</title>
+  <link rel="preload" href="/style.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/style.css"></noscript>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" as="style" onload="this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"></noscript>
+  <style>
+    .tools-hero{min-height:60vh;display:flex;align-items:center;justify-content:center;padding:120px 20px 60px;background:linear-gradient(135deg, rgba(1,9,19,0.9) 0%, rgba(10,26,46,0.8)100%);position:relative}
+    .tools-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg, rgba(1,9,19,0.9) 0%, rgba(10,26,46,0.8)100%)}
+    .tools-hero .hero-content{position:relative;z-index:1;text-align:center}
+    .hero-title{font-family:var(--font-heading);color:var(--accent-primary);font-size:3rem;letter-spacing:2px;margin:0 0 8px;text-transform:uppercase}
+    .neon-glow{text-shadow:0 0 8px var(--glow-color)}
+    .hero-tagline{color:var(--text-secondary);margin:0}
+    .osint-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:20px}
+    .tool-box{display:block;padding:14px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border-color);text-decoration:none;color:var(--text-primary);font-weight:600}
+    .tool-box small{display:block;color:var(--text-secondary);font-weight:400;margin-top:6px}
+    /* Sky-light hover glow for OSINT cards */
+    .tool-box{position:relative;overflow:hidden;transition:transform .22s cubic-bezier(.2,.9,.25,1),box-shadow .22s ease}
+    .tool-box::before{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at center, rgba(0,255,178,0.14) 0%, rgba(0,200,255,0.06) 35%, transparent 60%);opacity:0;pointer-events:none;transition:opacity .28s ease,transform .28s ease}
+    .tool-box:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,255,178,0.08),0 0 36px rgba(0,200,255,0.04)}
+    .tool-box:hover::before{opacity:1;transform:translateX(-50%) translateY(-8%)}
+    .tool-box:focus-within{outline:2px solid rgba(0,255,178,0.06);outline-offset:4px}
+    .section-block{padding:40px 0}
+    .section-title{font-family:var(--font-heading);color:var(--accent-primary);margin:0 0 8px}
+    .section-sub{color:var(--text-secondary);margin:0 0 12px}
+
+    /* Mobile lookup card */
+    .lookup-card{background:rgba(6,12,22,0.55);border:1px solid rgba(10,200,150,0.08);padding:26px;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,0.6);backdrop-filter:blur(6px)}
+    .lookup-input{width:100%;padding:18px 16px;border-radius:8px;background:rgba(0,0,0,0.45);border:1px solid rgba(30,200,120,0.12);color:var(--text-primary);font-size:16px;outline:none}
+    .lookup-input::placeholder{color:rgba(200,230,210,0.25)}
+    .lookup-buttons{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+
+    /* Tool button base */
+    .tool-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:10px;background:linear-gradient(90deg,#00ff9a,#00e08a);color:#042028;font-weight:700;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,255,160,0.08);transition:transform .18s cubic-bezier(.2,.9,.3,1),box-shadow .18s ease,background .12s ease,filter .18s ease}
+    .tool-btn svg{width:20px;height:20px;flex:0 0 20px}
+
+    /* Hover / focus: subtle lift + soft glow */
+    .tool-btn:hover, .tool-btn:focus{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 50px rgba(0,255,160,0.18),0 0 20px rgba(0,255,160,0.06) inset;filter:drop-shadow(0 10px 30px rgba(0,255,160,0.12));outline:none}
+    .tool-btn:focus-visible{box-shadow:0 18px 60px rgba(0,255,160,0.22),0 0 26px rgba(0,255,160,0.09) inset;}
+
+    /* Active / clicked: color shift and pressed transform */
+    .tool-btn:active{transform:translateY(0) scale(0.995);background:linear-gradient(90deg,#00cc85,#009f6f);box-shadow:0 6px 18px rgba(0,0,0,0.45);color:#eafaf4}
+
+    /* Secondary style preservation with its own subtle glow */
+    .tool-btn.secondary{background:linear-gradient(90deg,#0f1620,#0b2330);color:var(--text-primary);border:1px solid rgba(255,255,255,0.03);box-shadow:none}
+    .tool-btn.secondary:hover, .tool-btn.secondary:focus{box-shadow:0 12px 36px rgba(80,150,255,0.08),0 0 12px rgba(80,150,255,0.04) inset;transform:translateY(-2px) scale(1.01)}
+    .tool-btn.secondary:active{background:linear-gradient(90deg,#0b1320,#071722);color:#cfe6ff}
+    
+    /* Top marquee notification - continuous right-to-left glowing sky-blue banner */
+    .top-marquee{position:relative;overflow:hidden;background:linear-gradient(90deg, rgba(2,12,25,0.55), rgba(3,18,34,0.45));padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.03);z-index:999}
+    .top-marquee .marquee-inner{display:flex;align-items:center;gap:64px;white-space:nowrap;will-change:transform;animation:marquee 60s linear infinite}
+    .top-marquee a{display:inline-block;padding:8px 18px;font-weight:800;color:#9ef0ff;text-decoration:none;font-family:var(--font-heading);font-size:1rem;border-radius:6px;box-shadow:0 6px 28px rgba(158,240,255,0.12),0 0 26px rgba(60,180,230,0.06) inset;}
+    .top-marquee a:hover{filter:brightness(1.06);text-decoration:underline}
+    @keyframes marquee{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+
+    @media (max-width:720px){.tool-btn{flex:1 1 100%;justify-content:center}}
+    /* Live preview styles for lookup inputs */
+    .lookup-preview{margin-top:12px;padding:12px;border-radius:8px;background:linear-gradient(90deg, rgba(7,12,20,0.6), rgba(10,18,30,0.55));border:1px solid rgba(127,219,255,0.04);color:var(--text-secondary);font-size:0.95rem}
+    .lookup-preview .muted{color:var(--text-secondary);font-size:0.92rem}
+    .lookup-preview .tool-btn{padding:8px 12px;font-size:0.9rem}
+    /* OSINT page two-column layout and TOC styles */
+    .osint-layout{margin-top:28px}
+    .toc .section-title{font-size:1rem;margin:0 0 8px;color:var(--accent-primary)}
+    .toc ul{list-style:none;margin:0;padding:0}
+    .toc li{margin-bottom:6px}
+    .toc a{display:block;padding:6px 8px;border-radius:6px;color:var(--text-secondary);text-decoration:none;font-weight:600}
+    .toc a:hover{background:rgba(0,255,160,0.04);color:var(--accent-primary)}
+    @media (min-width:920px){
+      .osint-layout{display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:start}
+      .toc{position:sticky;top:84px;padding:14px;border-radius:10px;background:linear-gradient(90deg, rgba(6,12,22,0.55), rgba(8,18,30,0.5));border:1px solid rgba(127,219,255,0.04)}
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="/index.html" class="nav-home" aria-label="SN Security Home">
+          <img src="assets/logo.svg" alt="SN Security Logo" width="40" height="40" decoding="async" loading="lazy">
+          <span>SN Security</span>
+        </a>
+      </div>
+      <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="roadmap.html" class="nav-link">Roadmap</a></li>
+        <li><a href="tools.html" class="nav-link">Tools</a></li>
+        <li><a href="tech-store.html" class="nav-link">Store</a></li>
+        <li><a href="/udemy-courses.html" class="nav-link">Udemy Free Courses</a></li>
+        <li><a href="ctf-news.html" class="nav-link">CTF & News</a></li>
+        <li><a href="osint.html" class="nav-link active">OSINT</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="/legal.html" class="nav-link">Legal</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="top-marquee" role="region" aria-label="Site notification">
+    <div class="marquee-inner" aria-hidden="false">
+      <a href="https://www.ceir.gov.in/Request/CeirUserBlockRequestDirect.jsp" target="_blank" rel="noopener noreferrer">Lost / Stolen Mobile? Block It Now — CLICK HERE</a>
+      <a href="https://www.ceir.gov.in/Request/CeirUserBlockRequestDirect.jsp" target="_blank" rel="noopener noreferrer">Lost / Stolen Mobile? Block It Now — CLICK HERE</a>
+    </div>
+  </div>
+
+  <section class="tools-hero">
+    <div class="hero-content">
+      <h1 class="hero-title neon-glow">OSINT Tools & Resources</h1>
+      <p class="hero-tagline">Open Source Intelligence gathering tools and techniques</p>
+    </div>
+  </section>
+
+  <!-- Two-column layout: TOC (left) + content (right) -->
+  <div class="osint-layout container">
+    <aside class="toc" aria-label="OSINT navigation">
+      <h3 class="section-title">On this page</h3>
+      <nav>
+        <ul>
+          <li><a href="#mobile-lookup">Mobile Number Lookup</a></li>
+          <li><a href="#username-lookup">Username / People</a></li>
+          <li><a href="#domain-lookup">Domain Lookup</a></li>
+          <li><a href="#image-lookup">Image / Face Search</a></li>
+          <li><a href="#email-lookup">Email Lookup</a></li>
+          <li><a href="#geo">Geolocation / Maps</a></li>
+          <li><a href="#public-records">Public Records</a></li>
+          <li><a href="#cyber">Cybersecurity / Network</a></li>
+          <li><a href="#social">Social Media + Dark Web</a></li>
+          <li><a href="#upcoming-features">Upcoming Features</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="container">
+
+    <section id="mobile-lookup" class="section-block">
+      <h2 class="section-title">Mobile Number OSINT Lookup</h2>
+      <p class="section-sub">Enter a mobile number and choose a tool — opens the tool with the number searched automatically. If the field is empty the button opens the tool homepage.</p>
+
+      <div class="lookup-card">
+        <label for="mobileQuery" class="sr-only">Mobile number</label>
+        <input id="mobileQuery" class="lookup-input" placeholder="Enter mobile number (e.g., +1234567890)" inputmode="tel" aria-label="Mobile number">
+
+        <!-- Live preview / suggestions for mobile numbers -->
+        <div id="mobilePreview" class="lookup-preview" aria-live="polite" hidden>
+          <div id="mobilePreviewState" class="muted">Waiting for input...</div>
+          <div id="mobilePreviewNormalized" style="margin-top:6px;display:none;"></div>
+          <div id="mobilePreviewActions" style="margin-top:8px;display:none;">
+            <a id="mobilePreviewTelegram" class="tool-btn secondary" href="#" target="_blank" rel="noopener noreferrer">Open in Telegram</a>
+          </div>
+        </div>
+
+        <div class="lookup-buttons" role="list">
+          <button type="button" class="tool-btn" data-home="https://t.me/UniversalSearchBot_botBot" data-search="https://www.google.com/search?q={QUERY}+site:t.me/UniversalSearchBot_botBot" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.6 4 2 7L12 16 5.6 20l2-7L2 9h7l3-7z" fill="currentColor"/></svg>
+            <span>UniversalSearchBot</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://www.truecaller.com" data-search="https://www.truecaller.com/search/{QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="currentColor"/></svg>
+            <span>Truecaller</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://www.getcontact.com" data-search="https://www.google.com/search?q={QUERY}+site:getcontact.com" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><rect width="20" height="14" x="2" y="5" rx="2" fill="currentColor"/></svg>
+            <span>GetContact</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://www.eyecon-app.com" data-search="https://www.google.com/search?q={QUERY}+site:eyecon-app.com" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+            <span>Eyecon</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://numverify.com" data-search="https://www.google.com/search?q={QUERY}+site:numverify.com" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+            <span>NumVerify</span>
+          </button>
+        </div>
+      </div>
+
+      
+
+    </section>
+
+    <section id="username-lookup" class="section-block">
+      <h2 class="section-title">Username / People OSINT</h2>
+      <p class="section-sub">People and username search tools (homepage links). Replace query where applicable on each site.</p>
+      <div class="lookup-card" style="margin-bottom:18px;">
+        <label for="usernameQuery" class="sr-only">Username</label>
+        <input id="usernameQuery" class="lookup-input" placeholder="Enter username (e.g., alice123)" aria-label="Username">
+        <div class="lookup-buttons" role="list">
+          <button type="button" class="tool-btn" data-home="https://whatsmyname.app" data-search="https://whatsmyname.app/{QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="currentColor"/></svg>
+            <span>WhatsMyName</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://github.com/sherlock-project/sherlock" data-search="https://www.google.com/search?q={QUERY}+site:github.com/sherlock-project" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" fill="currentColor"/></svg>
+            <span>Sherlock</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://www.social-searcher.com" data-search="https://www.social-searcher.com/search?q={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+            <span>Social Searcher</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://pipl.com" data-search="https://pipl.com/search/?q={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+            <span>Pipl</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://namecheckup.com" data-search="https://namecheckup.com/{QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" fill="currentColor"/></svg>
+            <span>Namecheckup</span>
+          </button>
+        </div>
+      </div>
+
+      
+
+      <div class="osint-grid">
+        <a class="tool-box" href="https://github.com/sherlock-project/sherlock" target="_blank" rel="noopener">Sherlock</a>
+        <a class="tool-box" href="https://whatsmyname.app" target="_blank" rel="noopener">WhatsMyName</a>
+        <a class="tool-box" href="https://pipl.com" target="_blank" rel="noopener">Pipl</a>
+        <a class="tool-box" href="https://peekyou.com" target="_blank" rel="noopener">PeekYou</a>
+        <a class="tool-box" href="https://webmii.com" target="_blank" rel="noopener">WebMii</a>
+        <a class="tool-box" href="https://www.beenverified.com" target="_blank" rel="noopener">BeenVerified</a>
+        <a class="tool-box" href="https://www.spokeo.com" target="_blank" rel="noopener">Spokeo</a>
+        <a class="tool-box" href="https://www.social-searcher.com" target="_blank" rel="noopener">Social Searcher</a>
+        <a class="tool-box" href="https://idcrawl.com" target="_blank" rel="noopener">IDcrawl</a>
+        <a class="tool-box" href="https://namecheckup.com" target="_blank" rel="noopener">Namecheckup</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Lullar</a>
+        <a class="tool-box" href="https://thatsthem.com" target="_blank" rel="noopener">ThatsThem</a>
+        <a class="tool-box" href="https://www.truepeoplesearch.com" target="_blank" rel="noopener">TruePeopleSearch</a>
+        <a class="tool-box" href="https://www.fastpeoplesearch.com" target="_blank" rel="noopener">FastPeopleSearch</a>
+        <a class="tool-box" href="https://www.whitepages.com" target="_blank" rel="noopener">WhitePages</a>
+        <a class="tool-box" href="https://www.familytreenow.com" target="_blank" rel="noopener">FamilyTreeNow</a>
+        <a class="tool-box" href="https://radaris.com" target="_blank" rel="noopener">Radaris</a>
+        <a class="tool-box" href="https://www.zoominfo.com" target="_blank" rel="noopener">Zoominfo</a>
+        <a class="tool-box" href="https://www.infotracer.com" target="_blank" rel="noopener">InfoTracer</a>
+        <a class="tool-box" href="https://www.intelius.com" target="_blank" rel="noopener">Intelius</a>
+      </div>
+    </section>
+
+    <section id="domain-lookup" class="section-block">
+      <h2 class="section-title">Domain OSINT Lookup</h2>
+      <p class="section-sub">Enter a domain (e.g., example.com) and choose a tool — opens the tool with the domain searched automatically. If the field is empty the button opens the tool homepage.</p>
+
+      <div class="lookup-card">
+        <label for="domainQuery" class="sr-only">Domain</label>
+        <input id="domainQuery" class="lookup-input" placeholder="Enter domain (e.g., example.com)" inputmode="url" aria-label="Domain">
+
+        <div class="lookup-buttons" role="list">
+          <button type="button" class="tool-btn" data-home="https://who.is" data-search="https://who.is/whois/{QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+            <span>Whois</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://dnsdumpster.com" data-search="https://www.google.com/search?q={QUERY}+site:dnsdumpster.com" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" fill="currentColor"/></svg>
+            <span>DNSDumpster</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://securitytrails.com" data-search="https://securitytrails.com/domain/{QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+            <span>SecurityTrails</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://www.virustotal.com" data-search="https://www.virustotal.com/gui/domain/{QUERY}/details" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="currentColor"/></svg>
+            <span>VirusTotal</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://crt.sh" data-search="https://crt.sh/?q={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" fill="currentColor"/></svg>
+            <span>crt.sh</span>
+          </button>
+        </div>
+      </div>
+
+      
+
+    </section>
+
+    <section id="image-lookup" class="section-block">
+      <h2 class="section-title">Image OSINT / Face Search</h2>
+      <p class="section-sub">Search an image by URL across reverse-image services. Paste an image URL and choose a tool — if the field is empty the button opens the tool homepage.</p>
+
+      <div class="lookup-card" style="margin-bottom:18px;">
+        <label for="imageQuery" class="sr-only">Image URL</label>
+        <input id="imageQuery" class="lookup-input" placeholder="Paste image URL (https://example.com/photo.jpg)" inputmode="url" aria-label="Image URL">
+
+        <div class="lookup-buttons" role="list">
+          <button type="button" class="tool-btn" data-home="https://lens.google.com" data-search="https://www.google.com/searchbyimage?image_url={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="currentColor"/></svg>
+            <span>Google Image</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://yandex.com/images/" data-search="https://yandex.com/images/search?rpt=imageview&url={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+            <span>Yandex</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://tineye.com" data-search="https://tineye.com/search?url={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" fill="currentColor"/></svg>
+            <span>TinEye</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://fotoforensics.com" data-search="https://fotoforensics.com/analysis.php?image={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" fill="currentColor"/></svg>
+            <span>FotoForensics</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://imgops.com" data-search="https://imgops.com/?url={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+            <span>ImgOps</span>
+          </button>
+        </div>
+      </div>
+
+      
+
+      <div class="osint-grid">
+        <a class="tool-box" href="https://www.pimeyes.com" target="_blank" rel="noopener">PimEyes</a>
+        <a class="tool-box" href="https://lens.google.com" target="_blank" rel="noopener">Google Lens</a>
+        <a class="tool-box" href="https://yandex.com/images/" target="_blank" rel="noopener">Yandex Image Search</a>
+        <a class="tool-box" href="https://www.bing.com/images" target="_blank" rel="noopener">Bing Image Match</a>
+        <a class="tool-box" href="https://tineye.com" target="_blank" rel="noopener">TinEye</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">ExifTools</a>
+        <a class="tool-box" href="https://www.metadata2go.com" target="_blank" rel="noopener">Metadata2Go</a>
+        <a class="tool-box" href="https://imgops.com" target="_blank" rel="noopener">ImgOps</a>
+        <a class="tool-box" href="https://fotoforensics.com" target="_blank" rel="noopener">FotoForensics</a>
+      </div>
+    </section>
+
+    <section id="email-lookup" class="section-block">
+      <h2 class="section-title">Email OSINT</h2>
+      <p class="section-sub">Search an email address across common OSINT services. If the field is empty the button opens the tool homepage.</p>
+
+      <div class="lookup-card" style="margin-bottom:18px;">
+        <label for="emailQuery" class="sr-only">Email address</label>
+        <input id="emailQuery" class="lookup-input" placeholder="Enter email address (e.g., user@example.com)" inputmode="email" aria-label="Email address">
+
+        <div class="lookup-buttons" role="list">
+          <button type="button" class="tool-btn" data-home="https://hunter.io" data-search="https://www.google.com/search?q={QUERY}+site:hunter.io" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+            <span>Hunter</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://haveibeenpwned.com" data-search="https://haveibeenpwned.com/unifiedsearch/{QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+            <span>HaveIBeenPwned</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://www.dehashed.com" data-search="https://www.dehashed.com/search?query={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" fill="currentColor"/></svg>
+            <span>Dehashed</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://emailrep.io" data-search="https://emailrep.io/{QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="currentColor"/></svg>
+            <span>EmailRep</span>
+          </button>
+
+          <button type="button" class="tool-btn" data-home="https://mailtester.com" data-search="https://mailtester.com/testmail.php?email={QUERY}" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" fill="currentColor"/></svg>
+            <span>MailTester</span>
+          </button>
+        </div>
+      </div>
+
+      
+
+      <div class="osint-grid">
+        <a class="tool-box" href="https://hunter.io" target="_blank" rel="noopener">Hunter.io</a>
+        <a class="tool-box" href="https://emailrep.io" target="_blank" rel="noopener">EmailRep.io</a>
+        <a class="tool-box" href="https://haveibeenpwned.com" target="_blank" rel="noopener">HaveIBeenPwned</a>
+        <a class="tool-box" href="https://dehashed.com" target="_blank" rel="noopener">Dehashed</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Epieos</a>
+        <a class="tool-box" href="https://mailtester.com" target="_blank" rel="noopener">MailTester</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">VerifyEmail</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Holehe</a>
+        <a class="tool-box" href="https://clearbit.com" target="_blank" rel="noopener">Clearbit</a>
+        <a class="tool-box" href="https://www.scamadviser.com" target="_blank" rel="noopener">Scamadviser</a>
+      </div>
+    </section>
+
+    <section id="geo" class="section-block">
+      <h2 class="section-title">Geolocation / Maps OSINT</h2>
+      <div class="osint-grid">
+        <a class="tool-box" href="https://maps.google.com" target="_blank" rel="noopener">Google Maps</a>
+        <a class="tool-box" href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">GeoLocate</a>
+        <a class="tool-box" href="https://www.gpsvisualizer.com" target="_blank" rel="noopener">GPSVisualizer</a>
+        <a class="tool-box" href="https://wigle.net" target="_blank" rel="noopener">Wigle.net</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">IP2Location</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">MaxMind GeoIP</a>
+        <a class="tool-box" href="https://www.mapillary.com" target="_blank" rel="noopener">Mapillary</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Bellingcat Map Tools</a>
+      </div>
+    </section>
+
+    <section id="public-records" class="section-block">
+      <h2 class="section-title">Public Records / Government</h2>
+      <div class="osint-grid">
+        <a class="tool-box" href="https://www.courtlistener.com" target="_blank" rel="noopener">CourtListener</a>
+        <a class="tool-box" href="https://www.usa.gov" target="_blank" rel="noopener">USA.gov</a>
+        <a class="tool-box" href="https://www.govinfo.gov" target="_blank" rel="noopener">GovInfo</a>
+        <a class="tool-box" href="https://opencorporates.com" target="_blank" rel="noopener">OpenCorporates</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">CompanyCheck</a>
+        <a class="tool-box" href="https://www.sec.gov/edgar" target="_blank" rel="noopener">EDGAR SEC</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">WhoisXML API</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Registries.io</a>
+        <a class="tool-box" href="https://lookup.icann.org" target="_blank" rel="noopener">ICANN Lookup</a>
+      </div>
+    </section>
+
+    <section id="cyber" class="section-block">
+      <h2 class="section-title">Cybersecurity / Network</h2>
+      <div class="osint-grid">
+        <a class="tool-box" href="https://www.shodan.io" target="_blank" rel="noopener">Shodan</a>
+        <a class="tool-box" href="https://censys.io" target="_blank" rel="noopener">Censys</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">FOFA</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">ZoomEye</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">LeakIX</a>
+        <a class="tool-box" href="https://www.virustotal.com" target="_blank" rel="noopener">VirusTotal</a>
+        <a class="tool-box" href="https://www.hybrid-analysis.com" target="_blank" rel="noopener">HybridAnalysis</a>
+        <a class="tool-box" href="https://metadefender.opswat.com" target="_blank" rel="noopener">MetaDefender Cloud</a>
+        <a class="tool-box" href="https://www.greynoise.io" target="_blank" rel="noopener">GreyNoise</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">ONYPHE</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">DNSDumpster</a>
+        <a class="tool-box" href="https://crt.sh" target="_blank" rel="noopener">CRT.sh</a>
+        <a class="tool-box" href="https://securitytrails.com" target="_blank" rel="noopener">SecurityTrails</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Rapid7 OpenData</a>
+        <a class="tool-box" href="https://www.abuseipdb.com" target="_blank" rel="noopener">AbuseIPDB</a>
+        <a class="tool-box" href="https://urlscan.io" target="_blank" rel="noopener">URLScan.io</a>
+      </div>
+    </section>
+
+    <section id="social" class="section-block">
+      <h2 class="section-title">Social Media OSINT + Dark Web</h2>
+      <div class="osint-grid">
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Instagram Scraper</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Facebook Graph Tools</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">SocialLinks</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">Telegram OSINT Bot</a>
+        <a class="tool-box" href="https://darksearch.io" target="_blank" rel="noopener">DarkSearch.io</a>
+        <a class="tool-box" href="https://ahmia.fi" target="_blank" rel="noopener">Ahmia</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">OnionSearch</a>
+        <a class="tool-box" href="https://web.archive.org" target="_blank" rel="noopener">Wayback Machine</a>
+        <a class="tool-box" href="https://archive.is" target="_blank" rel="noopener">Archive.is</a>
+        <a class="tool-box" href="#" target="_blank" rel="noopener">OSINT Framework</a>
+      </div>
+    </section>
+
+    <section id="upcoming-features" class="section-block">
+      <h2 class="section-title">Upcoming Features / Roadmap</h2>
+      <p class="section-sub">Planned OSINT enhancements — quick overview of features we're adding to the toolkit.</p>
+
+      <div class="osint-grid">
+        <div class="tool-box">
+          <strong>🔍 Live Search Preview</strong>
+          <small>As user types number/email → show automatic suggestions & validation.</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>🧠 AI-Powered Data Summary</strong>
+          <small>Collect results from multiple sites and present a concise AI summary report.</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>🌍 IP Geolocation Map</strong>
+          <small>Enter IP → show map, ISP, ASN, DNS and TOR exit detection.</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>🕵️‍♂️ Dark Web Leak Scanner</strong>
+          <small>Check breaches and surface dark web exposure score for email/phone.</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>🖼️ AI Reverse Image Detect</strong>
+          <small>Face / Image OSINT — match images to social profile predictions.</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>📡 Wi-Fi Network Scanner</strong>
+          <small>Wigle integration + local Wi‑Fi device scanning (browser-permissions).</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>🎞️ Social Media Metadata Extractor</strong>
+          <small>Paste a post link to extract posted time, location and metadata.</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>⏳ Archive Watch</strong>
+          <small>Auto-check Wayback snapshots and show a visual timeline slider.</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>🛰️ CCTV / Traffic Cam Finder</strong>
+          <small>Locate public cameras near a given location (where available).</small>
+        </div>
+
+        <div class="tool-box">
+          <strong>🎤 Voice Print Lookup (Experimental)</strong>
+          <small>Upload a short voice clip to search for audio/video matches (experimental).</small>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Centralized lookup initializer: attach per-card handlers that open tool search (if {QUERY} present)
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.lookup-card').forEach(function(card){
+        const input = card.querySelector('.lookup-input');
+        const buttons = Array.from(card.querySelectorAll('.tool-btn'));
+        if(!buttons.length) return;
+
+        function openFor(btn){
+          try{
+            const home = btn.dataset.home || '';
+            const search = btn.dataset.search || '';
+            let q = input ? input.value.trim() : '';
+
+            // Normalize domain-style queries: strip protocol, path, querystring
+            if(q && input && input.id === 'domainQuery'){
+              try{
+                if(/:\/\//.test(q)){
+                  q = new URL(q).hostname || q;
+                } else {
+                  q = q.split(/[\/?#]/)[0] || q;
+                }
+                q = q.replace(/^www\./i,'').toLowerCase();
+              }catch(e){ /* fallback to raw q if parsing fails */ }
+            }
+
+            const encoded = encodeURIComponent(q);
+
+            function appendQuery(base){
+              if(!base) return base || '#';
+              if(base.indexOf('{QUERY}') !== -1) return base.replace('{QUERY}', encoded);
+              // if URL already has query params, append as &q=..., else ?q=...
+              try{
+                const urlObj = new URL(base);
+                urlObj.searchParams.set('q', q);
+                return urlObj.toString();
+              }catch(e){
+                return (base.indexOf('?') !== -1) ? (base + '&q=' + encoded) : (base.replace(/\/$/, '') + '?q=' + encoded);
+              }
+            }
+
+            if(q){
+              // detect phone-like inputs (digits with optional leading +, spaces, dashes, parentheses)
+              const isPhone = /^\+?\d[\d\s\-()]*$/.test(q);
+              const normalizedPhone = q.replace(/[^\d+]/g, '');
+
+              // Special-case Telegram deep links for bots (open with ?start=NUMBER)
+              if(isPhone && home && home.includes('t.me')){
+                const sep = home.indexOf('?') === -1 ? '?' : '&';
+                const tgUrl = home + sep + 'start=' + encodeURIComponent(normalizedPhone || q);
+                window.open(tgUrl, '_blank', 'noopener,noreferrer');
+              } else if(search && search.indexOf('{QUERY}') !== -1){
+                window.open(search.replace('{QUERY}', encoded), '_blank', 'noopener,noreferrer');
+              } else if(search){
+                // search template exists but no placeholder — append query param
+                window.open(appendQuery(search), '_blank', 'noopener,noreferrer');
+              } else if(home){
+                window.open(appendQuery(home), '_blank', 'noopener,noreferrer');
+              } else {
+                window.open('#', '_blank', 'noopener,noreferrer');
+              }
+            } else {
+              // no query entered: open home or search default
+              window.open(home || (search || '#'), '_blank', 'noopener,noreferrer');
+            }
+          }catch(err){
+            console.error('Lookup open failed', err);
+            window.open(btn.dataset.home || '#', '_blank', 'noopener,noreferrer');
+          }
+        }
+
+        buttons.forEach(function(b){ b.addEventListener('click', function(e){ e.preventDefault(); openFor(b); }); });
+
+        if(input){
+          input.addEventListener('keydown', function(e){
+            if(e.key === 'Enter'){
+              e.preventDefault();
+              const defaultBtn = buttons.find(b=>b.dataset.default === 'true') || buttons[0];
+              if(defaultBtn) openFor(defaultBtn);
+            }
+          });
+          // Live preview for mobile number input
+          if(input.id === 'mobileQuery'){
+            const preview = document.getElementById('mobilePreview');
+            const stateEl = document.getElementById('mobilePreviewState');
+            const normEl = document.getElementById('mobilePreviewNormalized');
+            const actionsEl = document.getElementById('mobilePreviewActions');
+            const tgLink = document.getElementById('mobilePreviewTelegram');
+
+            function updatePreview(){
+              const v = (input.value||'').trim();
+              if(!v){ preview.hidden = true; stateEl.textContent = 'Waiting for input...'; normEl.style.display = 'none'; actionsEl.style.display = 'none'; return; }
+              preview.hidden = false;
+              const isPhone = /^\+?\d[\d\s\-()]*$/.test(v);
+              if(isPhone){
+                stateEl.textContent = 'Detected phone number';
+                const normalized = v.replace(/[^\d+]/g,'');
+                normEl.style.display = 'block';
+                normEl.textContent = 'Normalized: ' + normalized;
+                // set Telegram deep link (uses UniversalSearchBot_bot by default)
+                tgLink.href = 'https://t.me/UniversalSearchBot_bot?start=' + encodeURIComponent(normalized);
+                actionsEl.style.display = 'block';
+              } else {
+                stateEl.textContent = 'Input does not look like a phone number';
+                normEl.style.display = 'none';
+                actionsEl.style.display = 'none';
+              }
+            }
+
+            input.addEventListener('input', updatePreview);
+            // initialize preview state
+            setTimeout(updatePreview, 60);
+          }
+        }
+      });
+    });
+  </script>
+
+  <!-- Landing-style footer -->
+  <footer class="footer landing-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="footer-logo">
+            <img src="assets/logo.svg" alt="SN Security" width="40" height="40" decoding="async" loading="lazy">
+            <span>SN Security</span>
+          </div>
+          <p class="footer-tagline">Learn Hacking. Secure Future.</p>
+          <div class="social-links">
+            <a href="https://x.com/" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            </a>
+            <a href="https://github.com/sahebsheikh25" class="social-link" aria-label="GitHub" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/sahebsheikh/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="/roadmap.html">Roadmap</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="osint.html">OSINT</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="ctf-news.html">CTF & News</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="/legal.html">Privacy Policy</a></li>
+            <li><a href="/legal.html">Terms of Service</a></li>
+            <li><a href="/legal.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SN Security. Use OSINT ethically — All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Lazy-load AOS (animations) and Particles to avoid render-blocking.
+    window.addEventListener('load', function(){
+      if(document.querySelector('[data-aos]')){
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/aos@2.3.1/dist/aos.css';
+        document.head.appendChild(link);
+        var s = document.createElement('script');
+        s.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+        s.defer = true;
+        s.onload = function(){ if(window.AOS) AOS.init({once:true,disableMutationObserver:true}); };
+        document.body.appendChild(s);
+      }
+
+      // Load particles only on larger viewports where effect is visible
+      if(window.innerWidth > 800 && document.getElementById('particles-js')){
+        var p = document.createElement('script');
+        p.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+        p.defer = true;
+        document.body.appendChild(p);
+      }
+    });
+  </script>
+  <script src="./ads.js" defer></script>
+  <script src="./script.js" defer></script>
+</body>
+</html>
