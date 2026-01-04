@@ -1,0 +1,50 @@
+# Restructure repository for Vercel static deploy
+# Moves site files into `public/` and backs up root duplicates into `legacy_site/`.
+# Run from repository root in PowerShell: `.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Write-Host "Restructure complete. Verify public/ contains your site root files and legacy_site/ holds backups."}  }    Move-Item -Path $rootAssets -Destination $publicAssets -Force    Write-Host "Moving root/assets into public/assets"  } else {    Move-Item -Path $rootAssets -Destination $legacyAssets -Force    Write-Host "public/assets exists — moving root/assets to legacy_site/assets"  if (Test-Path $publicAssets) {if (Test-Path $rootAssets) {$legacyAssets = Join-Path $legacy 'assets'$publicAssets = Join-Path $public 'assets'$rootAssets = Join-Path $root 'assets'# Move assets folder if exists at root and public/assets already exists}  }    }      Move-Item -Path $rootPath -Destination $publicPath -Force      Write-Host "-> Moving $name into public/"    } else {      Move-Item -Path $rootPath -Destination $backupPath -Force      Write-Host "-> $name already exists in public/ — moving root copy to legacy_site/"    if (Test-Path $publicPath) {    Write-Host "Found $name at root."  if (Test-Path $rootPath) {  $backupPath = Join-Path $legacy $name  $publicPath = Join-Path $public $name  $rootPath = Join-Path $root $nameforeach ($name in $items) {)  '404.html', 'index.backup.html'  'store.js', 'style.css', 'tech-store.html', 'tools.html', 'legal.html', 'ads.js',  'roadmap.html', 'osint.html', 'osint.previous.html', 'script.js', 'store.css',  'index.html', 'about.html', 'contact.html', 'course.html', 'ctf-news.html',$items = @(if (-not (Test-Path $legacy)) { New-Item -Path $legacy -ItemType Directory | Out-Null }$legacy = Join-Path $root 'legacy_site'$public = Join-Path $root 'public'$root = Get-Locationestructure-for-vercel.ps1`

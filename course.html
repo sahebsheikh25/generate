@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Udemy Free Courses — SN Security</title>
+  <meta name="description" content="Udemy Free Courses | Coding | ChatGPT | AI | Cybersecurity | Java | Python | Cloud">
+  <link rel="preload" href="public/style.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="public/style.css"></noscript>
+  <link rel="stylesheet" href="public/store.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* keep small page-specific overrides local */
+    .store-main{max-width:1100px;margin:28px auto;padding:18px}
+    .store-header{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .sub{color:var(--muted);font-size:14px}
+    .product-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:14px;margin-top:18px}
+    @media(min-width:640px){.product-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:980px){.product-grid{grid-template-columns:repeat(3,1fr)}}
+    .card{padding:14px;border-radius:12px}
+    .card h3{margin:0 0 6px;font-size:16px}
+    .card .meta{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+    .card .actions{margin-top:10px}
+    .label{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:999px;font-size:13px}
+    .navbar{padding:clamp(8px,1.6vh,14px) 12px}
+    .navbar .nav-container{display:flex;align-items:center;gap:12px}
+    .nav-logo .nav-home,.nav-logo a{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-logo img{display:block;height:var(--nav-logo-size,40px);max-height:48px;width:auto;object-fit:contain}
+    .nav-logo span{line-height:1;font-weight:600}
+    #navToggle,.nav-menu{align-self:center}
+    .store-main{margin-top:clamp(20px,4vw,44px)}
+    @media(max-width:480px){.navbar{padding:10px}.nav-logo img{height:34px}.store-main{margin-top:20px}}
+  </style>
+</head>
+<body>
+  <!-- Root-level shim: loads assets from public/ so page is reachable at /course.html -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="/" class="nav-home" aria-label="SN Security Home">
+          <img src="public/assets/logo.svg" alt="SN Security Logo" width="38" height="38" decoding="async" loading="lazy">
+          <span>SN Security</span>
+        </a>
+      </div>
+      <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="public/roadmap.html" class="nav-link">Roadmap</a></li>
+        <li><a href="public/tools.html" class="nav-link">Tools</a></li>
+        <li><a href="public/tech-store.html" class="nav-link">Store</a></li>
+        <li><a href="./course.html" class="nav-link">Courses</a></li>
+        <li><a href="public/ctf-news.html" class="nav-link">CTF & News</a></li>
+        <li><a href="public/osint.html" class="nav-link">OSINT</a></li>
+        <li><a href="public/free-courses.html" class="nav-link">Courses</a></li>
+        <li><a href="public/about.html" class="nav-link">About</a></li>
+        <li><a href="public/contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container store-main">
+    <!-- Include the canonical course markup (kept in public/) for maintainability -->
+    <!-- We'll fetch and inject it so the user sees the same page without changing URLs. -->
+    <div id="course-root">Loading courses…</div>
+  </div>
+
+  <script>
+    (async function(){
+      try{
+        const res = await fetch('public/course.html');
+        if(!res.ok) throw new Error('Failed to fetch course content');
+        const text = await res.text();
+        // Extract the main content between <div class="container store-main"> and </body>
+        const marker = '<div class="container store-main">';
+        const start = text.indexOf(marker);
+        if(start!==-1){
+          const fragment = text.slice(start + marker.length, text.lastIndexOf('</body>'));
+          document.getElementById('course-root').innerHTML = fragment;
+        } else {
+          document.getElementById('course-root').innerHTML = text;
+        }
+      }catch(e){
+        document.getElementById('course-root').textContent = 'Unable to load course page.';
+        console.error(e);
+      }
+    })();
+  </script>
+
+</body>
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Udemy Free Courses — SN Security</title>
+  <meta name="description" content="Udemy Free Courses | Coding | ChatGPT | AI | Cybersecurity | Java | Python | Cloud">
+  <link rel="preload" href="public/style.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="public/style.css"></noscript>
+  <link rel="stylesheet" href="public/store.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* keep small page-specific overrides local */
+    .store-main{max-width:1100px;margin:28px auto;padding:18px}
+    .store-header{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .sub{color:var(--muted);font-size:14px}
+    .product-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:14px;margin-top:18px}
+    @media(min-width:640px){.product-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:980px){.product-grid{grid-template-columns:repeat(3,1fr)}}
+    .card{padding:14px;border-radius:12px}
+    .card h3{margin:0 0 6px;font-size:16px}
+    .card .meta{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+    .card .actions{margin-top:10px}
+    .label{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:999px;font-size:13px}
+    .navbar{padding:clamp(8px,1.6vh,14px) 12px}
+    .navbar .nav-container{display:flex;align-items:center;gap:12px}
+    .nav-logo .nav-home,.nav-logo a{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-logo img{display:block;height:var(--nav-logo-size,40px);max-height:48px;width:auto;object-fit:contain}
+    .nav-logo span{line-height:1;font-weight:600}
+    #navToggle,.nav-menu{align-self:center}
+    .store-main{margin-top:clamp(20px,4vw,44px)}
+    @media(max-width:480px){.navbar{padding:10px}.nav-logo img{height:34px}.store-main{margin-top:20px}}
+  </style>
+</head>
+<body>
+  <!-- Root-level shim: loads assets from public/ so page is reachable at /course.html -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="/" class="nav-home" aria-label="SN Security Home">
+          <img src="public/assets/logo.svg" alt="SN Security Logo" width="38" height="38" decoding="async" loading="lazy">
+          <span>SN Security</span>
+        </a>
+      </div>
+      <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="public/roadmap.html" class="nav-link">Roadmap</a></li>
+        <li><a href="public/tools.html" class="nav-link">Tools</a></li>
+        <li><a href="public/tech-store.html" class="nav-link">Store</a></li>
+        <li><a href="public/ctf-news.html" class="nav-link">CTF & News</a></li>
+        <li><a href="public/osint.html" class="nav-link">OSINT</a></li>
+        <li><a href="public/free-courses.html" class="nav-link">Courses</a></li>
+        <li><a href="public/about.html" class="nav-link">About</a></li>
+        <li><a href="public/contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container store-main">
+    <!-- Include the canonical course markup (kept in public/) for maintainability -->
+    <!-- We'll fetch and inject it so the user sees the same page without changing URLs. -->
+    <div id="course-root">Loading courses…</div>
+  </div>
+
+  <script>
+    (async function(){
+      try{
+        const res = await fetch('public/course.html');
+        if(!res.ok) throw new Error('Failed to fetch course content');
+        const text = await res.text();
+        // Extract the main content between <div class="container store-main"> and </body>
+        const marker = '<div class="container store-main">';
+        const start = text.indexOf(marker);
+        if(start!==-1){
+          const fragment = text.slice(start + marker.length, text.lastIndexOf('</body>'));
+          document.getElementById('course-root').innerHTML = fragment;
+        } else {
+          document.getElementById('course-root').innerHTML = text;
+        }
+      }catch(e){
+        document.getElementById('course-root').textContent = 'Unable to load course page.';
+        console.error(e);
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -67,7 +67,8 @@ if (navToggle) {
 const currentLocation = location.pathname.split('/').pop() || 'index.html';
 const menuItems = document.querySelectorAll('.nav-link');
 menuItems.forEach(item => {
-    if (item.getAttribute('href') === currentLocation) {
+    const href = (item.getAttribute('href') || '').split('/').pop();
+    if (href === currentLocation) {
         item.classList.add('active');
     }
 });
